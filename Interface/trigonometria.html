@@ -399,39 +399,62 @@
     </div>
   </div>
 
-  <script>
-    document.getElementById('trigForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const angulo = parseFloat(document.getElementById('angulo').value.replace(',', '.'));
-      const catetoOposto = parseFloat(document.getElementById('catetoOposto').value.replace(',', '.'));
-      const catetoAdjacente = parseFloat(document.getElementById('catetoAdjacente').value.replace(',', '.'));
+ <script src="js/historico-formulas.js"></script>
+<script src="js/conquistas-utils.js"></script>
 
-      if (isNaN(angulo) || isNaN(catetoOposto) || isNaN(catetoAdjacente)) {
-        alert('Por favor, insira valores válidos.');
-        return;
+<script>
+document.getElementById('trigForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const angulo = parseFloat(document.getElementById('angulo').value.replace(',', '.'));
+  const catetoOposto = parseFloat(document.getElementById('catetoOposto').value.replace(',', '.'));
+  const catetoAdjacente = parseFloat(document.getElementById('catetoAdjacente').value.replace(',', '.'));
+
+  if (isNaN(angulo) || isNaN(catetoOposto) || isNaN(catetoAdjacente)) {
+    alert('Por favor, insira valores válidos.');
+    return;
+  }
+
+  const hipotenusa = Math.sqrt(catetoOposto ** 2 + catetoAdjacente ** 2);
+  const seno = catetoOposto / hipotenusa;
+  const cosseno = catetoAdjacente / hipotenusa;
+  const tangente = catetoOposto / catetoAdjacente;
+
+  // Atualiza UI
+  document.getElementById('res').innerHTML = `
+    Seno: ${seno.toFixed(2)}<br>
+    Cosseno: ${cosseno.toFixed(2)}<br>
+    Tangente: ${tangente.toFixed(2)}
+  `;
+
+  document.getElementById('explicacao').innerHTML = `
+    1️⃣ Hipotenusa = √(${catetoOposto}² + ${catetoAdjacente}²) = ${hipotenusa.toFixed(2)}<br>
+    2️⃣ Seno = Cateto Oposto / Hipotenusa = ${catetoOposto} / ${hipotenusa.toFixed(2)} = ${seno.toFixed(2)}<br>
+    3️⃣ Cosseno = Cateto Adjacente / Hipotenusa = ${catetoAdjacente} / ${hipotenusa.toFixed(2)} = ${cosseno.toFixed(2)}<br>
+    4️⃣ Tangente = Cateto Oposto / Cateto Adjacente = ${catetoOposto} / ${catetoAdjacente} = ${tangente.toFixed(2)}
+  `;
+
+  document.getElementById('resultado').style.display = 'block';
+  document.getElementById('passo').style.display = 'block';
+
+  // ===============================
+  // SALVAR NO HISTÓRICO e CONQUISTAS
+  // ===============================
+  try {
+      const resp = await enviarHistorico(6, { angulo, catetoOposto, catetoAdjacente }, { hipotenusa, seno, cosseno, tangente });
+      console.log('Histórico Trigonometria:', resp);
+      if (resp && resp.novas_conquistas?.length) {
+        const conquistas = await window.carregarConquistasAPI?.() ?? [];
+        window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
       }
+    } catch (err) {
+      console.error('Erro ao enviar histórico trigonometria:', err);
+    }
 
-      const hipotenusa = Math.sqrt(catetoOposto ** 2 + catetoAdjacente ** 2);
-      const seno = catetoOposto / hipotenusa;
-      const cosseno = catetoAdjacente / hipotenusa;
-      const tangente = catetoOposto / catetoAdjacente;
 
-      document.getElementById('res').innerHTML = `
-        Seno: ${seno.toFixed(2)}<br>
-        Cosseno: ${cosseno.toFixed(2)}<br>
-        Tangente: ${tangente.toFixed(2)}
-      `;
+  
+});
+</script>
 
-      document.getElementById('explicacao').innerHTML = `
-        1️⃣ Hipotenusa = √(${catetoOposto}² + ${catetoAdjacente}²) = ${hipotenusa.toFixed(2)}<br>
-        2️⃣ Seno = Cateto Oposto / Hipotenusa = ${catetoOposto} / ${hipotenusa.toFixed(2)} = ${seno.toFixed(2)}<br>
-        3️⃣ Cosseno = Cateto Adjacente / Hipotenusa = ${catetoAdjacente} / ${hipotenusa.toFixed(2)} = ${cosseno.toFixed(2)}<br>
-        4️⃣ Tangente = Cateto Oposto / Cateto Adjacente = ${catetoOposto} / ${catetoAdjacente} = ${tangente.toFixed(2)}
-      `;
-
-      document.getElementById('resultado').style.display = 'block';
-      document.getElementById('passo').style.display = 'block';
-    });
-  </script>
 </body>
 </html>

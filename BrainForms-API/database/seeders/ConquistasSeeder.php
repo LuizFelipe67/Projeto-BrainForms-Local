@@ -9,13 +9,15 @@ class ConquistasSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('conquistas')->insert([
+        DB::table('conquistas')->insertOrIgnore([
             [
                 'id' => 1,
                 'name' => 'A Jornada',
                 'cor' => '#EDBCFF',
                 'descricao' => 'Seja muito bem-vindo ao BrainForms.<br>Sua jornada começa aqui!!<br>(essa é sua 1° conquista por acessar o sistema)',
                 'icone' => 'Imagens/conquista1.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 2,
@@ -23,6 +25,8 @@ class ConquistasSeeder extends Seeder
                 'cor' => '#3C71ED',
                 'descricao' => 'Vamos explorar o Universo da Matemática.<br>Efetue um Cálculo em Fórmulas Matemáticas!',
                 'icone' => 'Imagens/conquista2.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 3,
@@ -30,6 +34,8 @@ class ConquistasSeeder extends Seeder
                 'cor' => '#e74c3c',
                 'descricao' => 'Conclua exercícios práticos para reforçar seu aprendizado.<br>Finalize algum questionário do BrainForms!!',
                 'icone' => 'Imagens/conquista3.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 4,
@@ -37,6 +43,8 @@ class ConquistasSeeder extends Seeder
                 'cor' => '#8e44ad',
                 'descricao' => 'Estudar nem sempre é chato, ainda mais com o BrainForms.<br>Finalize o TimeQuizz na zona de minigames!',
                 'icone' => 'Imagens/conquista4.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 5,
@@ -44,6 +52,8 @@ class ConquistasSeeder extends Seeder
                 'cor' => '#3CED68',
                 'descricao' => 'Vamos explorar o Universo da Física.<br>Efetue um Cálculo em Fórmulas Físicas!',
                 'icone' => 'Imagens/conquista5.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 6,
@@ -51,6 +61,8 @@ class ConquistasSeeder extends Seeder
                 'cor' => '#FFEB3C',
                 'descricao' => 'O Foco e Disciplina movem montanhas.<br>Mantenha-se firme em seus estudos por 3 dias seguidos!',
                 'icone' => 'Imagens/conquista6.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 7,
@@ -58,6 +70,8 @@ class ConquistasSeeder extends Seeder
                 'cor' => '#9747FF',
                 'descricao' => 'QUE CHARME!!<br>Altere sua foto de perfil.',
                 'icone' => 'Imagens/conquista7.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 8,
@@ -65,6 +79,8 @@ class ConquistasSeeder extends Seeder
                 'cor' => 'linear-gradient(180deg, #00f7ff 0%, #6a00ff 55%)',
                 'descricao' => 'Uau! Você é um gênio dos questionários!<br>Complete um questionário com 100% de acertos.',
                 'icone' => 'Imagens/conquista8.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 9,
@@ -72,6 +88,8 @@ class ConquistasSeeder extends Seeder
                 'cor' => '#001CD3',
                 'descricao' => 'Aprender Geometria é divertido!<br>Efetue um cálculo de Fórmulas Geométricas.',
                 'icone' => 'Imagens/conquista9.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 10,
@@ -79,6 +97,8 @@ class ConquistasSeeder extends Seeder
                 'cor' => '#d35400',
                 'descricao' => 'Aprender sobre temperaturas é incrivél!<br>Efetue um cálculo de Conversão de Temperaturas.',
                 'icone' => 'Imagens/conquista10.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 11,
@@ -86,13 +106,17 @@ class ConquistasSeeder extends Seeder
                 'cor' => 'linear-gradient(180deg, #B400D3 0%, #6a00ff 55%)',
                 'descricao' => 'Ágil e Certeiro!!<br>Um verdadeiro Gênio do TimeQuizz.<br>Acerte todas as questões em um TimeQuizz.',
                 'icone' => 'Imagens/conquista11.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'id' => 12,
                 'name' => 'Boa Tentativa',
                 'cor' => '#2980b9',
-                'descricao' => 'Essa foi Quase!!<br>Erre apena uma questão no TimeQuizz.',
+                'descricao' => 'Essa foi Quase!!<br>Erre apenas uma questão no TimeQuizz.',
                 'icone' => 'Imagens/conquista12.png',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
         ]);
     }

@@ -44,6 +44,16 @@ class AlunoController extends Controller
 
     }
 
+    public function marcarBoasVindas($id)
+    {
+        $aluno = Aluno::findOrFail($id);
+        $aluno->primeiro_login = false;
+        $aluno->save();
+
+        return response()->json(['message' => 'Boas-vindas marcada como vista']);
+    }
+
+
     /**
      * Display the specified resource.
      */

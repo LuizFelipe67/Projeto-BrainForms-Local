@@ -18,6 +18,11 @@ return new class extends Migration
         $table->string('password');
         $table->timestamps();
     });
+
+    Schema::table('alunos', function (Blueprint $table) {
+        $table->boolean('primeiro_login')->default(true);
+    });
+
 }
 
 

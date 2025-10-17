@@ -495,98 +495,162 @@ button.calc-btn:hover {
     <img src="Imagens/menu.png" alt="Menu" />
   </div>
 
+<script src="js/conquistas-utils.js"></script>
+<script src="js/historico-formulas.js"></script>
+
 <script>
-  const dropdownButton = document.getElementById('dropdownButton');
-  const dropdownContent = document.getElementById('dropdownContent');
-  const arrowIcon = document.getElementById('arrowIcon');
-  const forms = document.querySelectorAll('.calculo-form');
-  const resultado = document.getElementById('resultado');
-  const saidaResultado = document.getElementById('saidaResultado');
+const dropdownButton = document.getElementById('dropdownButton');
+const dropdownContent = document.getElementById('dropdownContent');
+const arrowIcon = document.getElementById('arrowIcon');
+const forms = document.querySelectorAll('.calculo-form');
+const resultado = document.getElementById('resultado');
+const saidaResultado = document.getElementById('saidaResultado');
 
-  const definicoes = {
-    'logGeralForm': 'O logaritmo geral é o expoente ao qual uma base deve ser elevada para obter um número.',
-    'logNaturalForm': 'O logaritmo natural (ln) é o logaritmo na base e, utilizado para crescimento exponencial e processos naturais.',
-    'logBase10Form': 'O logaritmo base 10 (log10) é amplamente usado em ciências e engenharia para escalas logarítmicas.'
-  };
+const definicoes = {
+  'logGeralForm': 'O logaritmo geral é o expoente ao qual uma base deve ser elevada para obter um número.',
+  'logNaturalForm': 'O logaritmo natural (ln) é o logaritmo na base e, utilizado para crescimento exponencial e processos naturais.',
+  'logBase10Form': 'O logaritmo base 10 (log10) é amplamente usado em ciências e engenharia para escalas logarítmicas.'
+};
 
-  dropdownButton.addEventListener('click', () => {
-    const expanded = dropdownButton.getAttribute('aria-expanded') === 'true';
-    dropdownButton.setAttribute('aria-expanded', String(!expanded));
-    dropdownContent.classList.toggle('show');
-    arrowIcon.classList.toggle('open');
+// ===============================
+// DROPDOWN
+// ===============================
+dropdownButton.addEventListener('click', () => {
+  const expanded = dropdownButton.getAttribute('aria-expanded') === 'true';
+  dropdownButton.setAttribute('aria-expanded', String(!expanded));
+  dropdownContent.classList.toggle('show');
+  arrowIcon.classList.toggle('open');
+});
+
+document.addEventListener('click', (e) => {
+  if (!dropdownButton.contains(e.target) && !dropdownContent.contains(e.target)) {
+    dropdownContent.classList.remove('show');
+    dropdownButton.setAttribute('aria-expanded', 'false');
+    arrowIcon.classList.remove('open');
+  }
+});
+
+dropdownContent.querySelectorAll('button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const formId = btn.getAttribute('data-form');
+    forms.forEach(f => f.classList.remove('active'));
+    document.getElementById(formId).classList.add('active');
+
+    document.getElementById('explicacaoTexto').textContent = definicoes[formId];
+    resultado.style.display = 'none';
+    saidaResultado.textContent = '';
+
+    dropdownButton.firstChild.textContent = btn.textContent + ' ';
+    dropdownButton.appendChild(arrowIcon);
+    dropdownContent.classList.remove('show');
+    dropdownButton.setAttribute('aria-expanded', 'false');
+    arrowIcon.classList.remove('open');
   });
+});
 
-  document.addEventListener('click', (e) => {
-    if (!dropdownButton.contains(e.target) && !dropdownContent.contains(e.target)) {
-      dropdownContent.classList.remove('show');
-      dropdownButton.setAttribute('aria-expanded', 'false');
-      arrowIcon.classList.remove('open');
+
+
+// ===============================
+// LOGARITMO GERAL
+// ===============================
+document.getElementById('logGeralForm')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const base = parseFloat(document.getElementById('base').value);
+  const numero = parseFloat(document.getElementById('numero').value);
+
+  let textoResultado;
+  if (isNaN(base) || isNaN(numero) || base <= 0 || numero <= 0 || base === 1) {
+    textoResultado = "Insira valores válidos. Base > 0 e ≠ 1, número > 0.";
+  } else {
+    const logaritmo = Math.log(numero) / Math.log(base);
+    textoResultado = `log${base}(${numero}) = ${logaritmo.toFixed(2)}`;
+  }
+
+  saidaResultado.textContent = textoResultado;
+  resultado.style.display = 'block';
+
+    // SALVAR NO HISTÓRICO e CONQUISTAS
+  try {
+      const resp = await enviarHistorico(7, {base, numero}, {resultado: textoResultado});
+      console.log('Histórico logaritmo:', resp);
+      if (resp && resp.novas_conquistas?.length) {
+        const conquistas = await window.carregarConquistasAPI?.() ?? [];
+        window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+      }
+    } catch (err) {
+      console.error('Erro ao enviar histórico logaritmo:', err);
     }
-  });
 
-  dropdownContent.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const selectedText = btn.textContent;
-      dropdownButton.firstChild.textContent = selectedText + ' ';
-      dropdownContent.classList.remove('show');
-      dropdownButton.setAttribute('aria-expanded', 'false');
-      arrowIcon.classList.remove('open');
+});
 
-      forms.forEach(form => form.classList.remove('active'));
-      const formId = btn.getAttribute('data-form');
-      document.getElementById(formId).classList.add('active');
+// ===============================
+// LOGARITMO NATURAL
+// ===============================
+document.getElementById('logNaturalForm')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const numero = parseFloat(document.getElementById('numeroLn').value);
 
-      // Atualiza a definição dinamicamente
-      document.getElementById('explicacaoTexto').textContent = definicoes[formId];
+  let textoResultado;
+  if (isNaN(numero) || numero <= 0) {
+    textoResultado = "Insira um número válido > 0.";
+  } else {
+    const logaritmo = Math.log(numero);
+    textoResultado = `ln(${numero}) = ${logaritmo.toFixed(2)}`;
+  }
 
-      resultado.style.display = 'none';
-      saidaResultado.textContent = '';
-    });
-  });
+  saidaResultado.textContent = textoResultado;
+  resultado.style.display = 'block';
 
-  // Função para calcular logaritmo geral
-  document.getElementById('logGeralForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const base = parseFloat(document.getElementById('base').value); // ID corrigido
-    const numero = parseFloat(document.getElementById('numero').value); // ID corrigido
 
-    if (isNaN(base) || isNaN(numero) || base <= 0 || numero <= 0 || base === 1) {
-      saidaResultado.textContent = "Insira valores válidos. Base > 0 e ≠ 1, número > 0.";
-    } else {
-      const logaritmo = Math.log(numero) / Math.log(base);
-      saidaResultado.textContent = `log${base}(${numero}) = ${logaritmo.toFixed(2)}`;
+    // SALVAR NO HISTÓRICO e CONQUISTAS
+  try {
+      const resp = await enviarHistorico(8, { numero }, { resultado: textoResultado });
+      console.log('Histórico logaritmo natural:', resp);
+      if (resp && resp.novas_conquistas?.length) {
+        const conquistas = await window.carregarConquistasAPI?.() ?? [];
+        window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+      }
+    } catch (err) {
+      console.error('Erro ao enviar histórico logaritmo natural:', err);
     }
-    resultado.style.display = 'block';
-  });
 
-  // Função para calcular logaritmo natural
-  document.getElementById('logNaturalForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const numero = parseFloat(document.getElementById('numeroLn').value); // ID corrigido
+});
 
-    if (isNaN(numero) || numero <= 0) {
-      saidaResultado.textContent = "Insira um número válido > 0.";
-    } else {
-      const logaritmo = Math.log(numero);
-      saidaResultado.textContent = `ln(${numero}) = ${logaritmo.toFixed(2)}`;
+// ===============================
+// LOGARITMO BASE 10
+// ===============================
+document.getElementById('logBase10Form')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const numero = parseFloat(document.getElementById('numeroLog10').value);
+
+  let textoResultado;
+  if (isNaN(numero) || numero <= 0) {
+    textoResultado = "Insira um número válido > 0.";
+  } else {
+    const logaritmo = Math.log10(numero);
+    textoResultado = `log10(${numero}) = ${logaritmo.toFixed(2)}`;
+  }
+
+  saidaResultado.textContent = textoResultado;
+  resultado.style.display = 'block';
+
+  
+  // SALVAR NO HISTÓRICO e CONQUISTAS
+   try {
+      const resp = await enviarHistorico(9, { numero }, { resultado: textoResultado });
+      console.log('Histórico logaritmo base 10:', resp);
+      if (resp && resp.novas_conquistas?.length) {
+        const conquistas = await window.carregarConquistasAPI?.() ?? [];
+        window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+      }
+    } catch (err) {
+      console.error('Erro ao enviar histórico logaritmo base 10:', err);
     }
-    resultado.style.display = 'block';
-  });
 
-  // Função para calcular logaritmo base 10
-  document.getElementById('logBase10Form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const numero = parseFloat(document.getElementById('numeroLog10').value); // ID corrigido
-
-    if (isNaN(numero) || numero <= 0) {
-      saidaResultado.textContent = "Insira um número válido > 0.";
-    } else {
-      const logaritmo = Math.log10(numero);
-      saidaResultado.textContent = `log10(${numero}) = ${logaritmo.toFixed(2)}`;
-    }
-    resultado.style.display = 'block';
-  });
+});
 </script>
+
+
 
 </body>
 </html>

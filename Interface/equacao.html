@@ -231,6 +231,7 @@
 
     #resultado {
       display: none;
+      transition: all 0.3s ease;
     }
 
     #resultado h3 {
@@ -410,32 +411,70 @@
     </div>
   </div>
 
+  
+    <script src="js/conquistas-utils.js"></script>
+    <script src="js/historico-formulas.js"></script>
+
   <script>
-    document.getElementById('equacaoForm').addEventListener('submit', function (event) {
-      event.preventDefault();
-      const a = parseFloat(document.getElementById('a').value);
-      const b = parseFloat(document.getElementById('b').value);
-      const c = parseFloat(document.getElementById('c').value);
+    
+// ===============================
+// FORMULÁRIO EQUAÇÃO (BHASKARA)
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById('equacaoForm');
+  if (!form) return;
 
-      const delta = b * b - 4 * a * c;
-      let resultado = '';
-      let passoAPasso = `Calculando o discriminante (Delta):\nΔ = b² - 4ac\nΔ = ${b}² - 4 * ${a} * ${c}\nΔ = ${delta}\n\n`;
+  form.addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-      if (delta < 0) {
-        resultado = 'A equação não possui raízes reais.';
-        passoAPasso += 'Como Δ < 0, não existem raízes reais.';
-      } else {
-        const x1 = (-b + Math.sqrt(delta)) / (2 * a);
-        const x2 = (-b - Math.sqrt(delta)) / (2 * a);
-        resultado = `As raízes da equação são x1 = ${x1.toFixed(2)} e x2 = ${x2.toFixed(2)}`;
-        passoAPasso += `Como Δ ≥ 0, calculamos as raízes:\n\nx1 = (-b + √Δ) / 2a\nx1 = (-${b} + √${delta}) / (2 * ${a})\nx1 = ${x1.toFixed(2)}\n\n`;
-        passoAPasso += `x2 = (-b - √Δ) / 2a\nx2 = (-${b} - √${delta}) / (2 * ${a})\nx2 = ${x2.toFixed(2)}`;
+    const a = parseFloat(document.getElementById('a').value);
+    const b = parseFloat(document.getElementById('b').value);
+    const c = parseFloat(document.getElementById('c').value);
+
+    const delta = b * b - 4 * a * c;
+    let resultado = '';
+    let passoAPasso = `Calculando o discriminante (Delta):\nΔ = b² - 4ac\nΔ = ${b}² - 4 * ${a} * ${c}\nΔ = ${delta}\n\n`;
+
+    if (delta < 0) {
+      resultado = 'A equação não possui raízes reais.';
+      passoAPasso += 'Como Δ < 0, não existem raízes reais.';
+    } else {
+      const x1 = (-b + Math.sqrt(delta)) / (2 * a);
+      const x2 = (-b - Math.sqrt(delta)) / (2 * a);
+      resultado = `As raízes da equação são x1 = ${x1.toFixed(2)} e x2 = ${x2.toFixed(2)}`;
+      passoAPasso += `Como Δ ≥ 0, calculamos as raízes:\n\nx1 = (-b + √Δ) / 2a\nx1 = (-${b} + √${delta}) / (2 * ${a})\nx1 = ${x1.toFixed(2)}\n\n`;
+      passoAPasso += `x2 = (-b - √Δ) / 2a\nx2 = (-${b} - √${delta}) / (2 * ${a})\nx2 = ${x2.toFixed(2)}`;
+    }
+
+
+
+    // Atualiza UI
+    document.getElementById('resultado').style.display = 'block';
+    document.getElementById('equacaoResult').textContent = resultado;
+    document.getElementById('passoAPasso').textContent = passoAPasso;
+
+ 
+
+    
+    try {
+      const resp = await enviarHistorico(1, { a, b, c }, { delta, resultado });
+      console.log('enviarHistorico resp:', resp);
+      if (resp && resp.novas_conquistas?.length) {
+        const conquistas = await window.carregarConquistasAPI?.() ?? [];
+        console.log('conquistas API:', conquistas);
+        if (conquistas.length) {
+          window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+        }
       }
+    } catch (err) {
+      console.error('Erro ao enviar histórico (Equação):', err);
+    }
 
-      document.getElementById('resultado').style.display = 'block';
-      document.getElementById('equacaoResult').textContent = resultado;
-      document.getElementById('passoAPasso').textContent = passoAPasso;
-    });
-  </script>
+  });
+
+ 
+});
+</script>
+
 </body>
 </html>

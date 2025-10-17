@@ -599,8 +599,16 @@ button.calc-btn:hover {
     </div>
   </div>
 
+
+
+<script src="js/conquistas-utils.js"></script>
+<script src="js/historico-formulas.js"></script>
+
+
 <script>
-  // Dropdown controle
+  // ===============================
+  // CONTROLE DE DROPDOWN E DEFINIÇÕES
+  // ===============================
   const dropdownButton = document.getElementById('dropdownButton');
   const dropdownContent = document.getElementById('dropdownContent');
   const arrowIcon = document.getElementById('arrowIcon');
@@ -627,98 +635,139 @@ button.calc-btn:hover {
     explicacaoDiv.textContent = definicoes[formId] || '';
   }
 
-  // Alternar dropdown e formulário
   dropdownButton.addEventListener('click', () => {
     const expanded = dropdownButton.getAttribute('aria-expanded') === 'true';
-    if (expanded) {
-      dropdownContent.classList.remove('show');
-      dropdownButton.setAttribute('aria-expanded', false);
-      arrowIcon.classList.remove('open');
-    } else {
-      dropdownContent.classList.add('show');
-      dropdownButton.setAttribute('aria-expanded', true);
-      arrowIcon.classList.add('open');
-    }
+    dropdownContent.classList.toggle('show', !expanded);
+    dropdownButton.setAttribute('aria-expanded', !expanded);
+    arrowIcon.classList.toggle('open', !expanded);
   });
 
-  // Seleção do cálculo
   dropdownContent.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
       const formId = btn.getAttribute('data-form');
-
-      // Mostrar o formulário selecionado
       forms.forEach(f => f.classList.remove('active'));
       document.getElementById(formId).classList.add('active');
 
-      // Resetar resultado
       resultadoDiv.style.display = 'none';
       saidaResultado.textContent = '';
 
-      // Fechar dropdown
       dropdownContent.classList.remove('show');
       dropdownButton.setAttribute('aria-expanded', false);
       arrowIcon.classList.remove('open');
-
-      // Atualizar botão dropdown texto
       dropdownButton.textContent = btn.textContent;
       dropdownButton.appendChild(arrowIcon);
-
-      // Atualizar definição
       atualizarDefinicao(formId);
     });
   });
 
-  // Mostrar definição inicial na carga da página
   window.addEventListener('load', () => {
     atualizarDefinicao('areaCirculoForm');
   });
 
-  // Funções dos cálculos
-  function calcularCirculo() {
+  // ===============================
+  // FUNÇÕES DE CÁLCULO
+  // ===============================
+  async function calcularCirculo() {
     const raio = parseFloat(document.getElementById('raioCirculo').value);
     if (isNaN(raio) || raio < 0) {
       alert('Por favor, insira um valor válido para o raio.');
       return;
     }
+
     const area = Math.PI * raio * raio;
     resultadoDiv.style.display = 'block';
     saidaResultado.textContent = `Área do círculo com raio ${raio.toFixed(2)} é ${area.toFixed(2)} unidades quadradas.`;
+
+    // SALVAR NO HISTÓRICO e CONQUISTAS
+    try {
+      const resp = await enviarHistorico(2, { raio }, { area });
+      console.log('Histórico círculo:', resp);
+      if (resp && resp.novas_conquistas?.length) {
+        const conquistas = await window.carregarConquistasAPI?.() ?? [];
+        window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+      }
+    } catch (err) {
+      console.error('Erro ao enviar histórico (Círculo):', err);
+    }
   }
 
-  function calcularEsfera() {
+  async function calcularEsfera() {
     const raio = parseFloat(document.getElementById('raioEsfera').value);
     if (isNaN(raio) || raio < 0) {
       alert('Por favor, insira um valor válido para o raio.');
       return;
     }
+
     const volume = (4 / 3) * Math.PI * Math.pow(raio, 3);
     resultadoDiv.style.display = 'block';
     saidaResultado.textContent = `Volume da esfera com raio ${raio.toFixed(2)} é ${volume.toFixed(2)} unidades cúbicas.`;
+
+    // SALVAR NO HISTÓRICO e CONQUISTAS
+    try {
+      const resp = await enviarHistorico(3, { raio }, { volume });
+      console.log('Histórico esfera:', resp);
+      if (resp && resp.novas_conquistas?.length) {
+        const conquistas = await window.carregarConquistasAPI?.() ?? [];
+        window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+      }
+    } catch (err) {
+      console.error('Erro ao enviar histórico (Esfera):', err);
+    }
   }
 
-  function calcularTriangulo() {
+  async function calcularTriangulo() {
     const base = parseFloat(document.getElementById('baseTriangulo').value);
     const altura = parseFloat(document.getElementById('alturaTriangulo').value);
     if (isNaN(base) || base < 0 || isNaN(altura) || altura < 0) {
       alert('Por favor, insira valores válidos para base e altura.');
       return;
     }
+
     const area = (base * altura) / 2;
     resultadoDiv.style.display = 'block';
     saidaResultado.textContent = `Área do triângulo com base ${base.toFixed(2)} e altura ${altura.toFixed(2)} é ${area.toFixed(2)} unidades quadradas.`;
+
+    // SALVAR NO HISTÓRICO e CONQUISTAS
+    try {
+      const resp = await enviarHistorico(4, { base, altura }, { area });
+      console.log('Histórico triângulo:', resp);
+      if (resp && resp.novas_conquistas?.length) {
+        const conquistas = await window.carregarConquistasAPI?.() ?? [];
+        window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+      }
+    } catch (err) {
+      console.error('Erro ao enviar histórico (Triângulo):', err);
+    }
   }
 
-  function calcularCilindro() {
+  async function calcularCilindro() {
     const raio = parseFloat(document.getElementById('raioCilindro').value);
     const altura = parseFloat(document.getElementById('alturaCilindro').value);
     if (isNaN(raio) || raio < 0 || isNaN(altura) || altura < 0) {
       alert('Por favor, insira valores válidos para raio e altura.');
       return;
     }
+
     const volume = Math.PI * raio * raio * altura;
     resultadoDiv.style.display = 'block';
     saidaResultado.textContent = `Volume do cilindro com raio ${raio.toFixed(2)} e altura ${altura.toFixed(2)} é ${volume.toFixed(2)} unidades cúbicas.`;
+
+    // SALVAR NO HISTÓRICO e CONQUISTAS
+    try {
+      const resp = await enviarHistorico(5, { raio, altura }, { volume });
+      console.log('Histórico cilindro:', resp);
+      if (resp && resp.novas_conquistas?.length) {
+        const conquistas = await window.carregarConquistasAPI?.() ?? [];
+        window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+      }
+    } catch (err) {
+      console.error('Erro ao enviar histórico (Cilindro):', err);
+    }
   }
+
+
 </script>
+
+
 </body>
 </html>

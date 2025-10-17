@@ -535,6 +535,7 @@ body {
             
             <img src="Imagens/menu.png" alt="Menu" style="width: 60px;"> <!-- Ícone do menu -->
         </div>
+
     </div>
 
 
@@ -547,61 +548,93 @@ body {
         </div>
     </div>
 
-    <script src="js/conquistas-utils.js"></script>
+<script src="js/conquistas-utils.js"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const nome = localStorage.getItem("alunoNome");
-        let mostrados = {};
-        try {
-            mostrados = JSON.parse(localStorage.getItem("boas_vindas_mostrada")) || {};
-        } catch(e) {
-            mostrados = {};
-        }
-        const alunoId = localStorage.getItem('alunoId');
-        const seenKey = alunoId ? `boas_vindas_vista_${alunoId}` : null;
-        const shouldShow = localStorage.getItem('show_boas_vindas');
+    
+    // Atualiza o avatar salvo localmente
+    const savedAvatar = localStorage.getItem("alunoAvatar");
+    if (savedAvatar) {
+        const menuAvatar = document.getElementById("menuAvatar");
+        if (menuAvatar) menuAvatar.src = savedAvatar;
+    }
 
-        // Mostrar overlay somente se foi marcado para mostrar e o usuário ainda não viu
-        const userAlreadySaw = seenKey ? !!localStorage.getItem(seenKey) : !!mostrados[nome];
-        if (nome && shouldShow && !userAlreadySaw) {
-            document.getElementById("nome-usuario").textContent = nome;
-            document.getElementById("start-overlay").style.display = "flex";
-        }
-        window.startGame = () => {
-            document.getElementById("start-overlay").style.display = "none";
-            mostrados[nome] = true;
-            localStorage.setItem("boas_vindas_mostrada", JSON.stringify(mostrados));
-            // marcar que o usuário visualizou a boas-vindas (por id) e limpar flag temporária
-            if (alunoId) {
-                const key = `boas_vindas_vista_${alunoId}`;
-                localStorage.setItem(key, 'true');
-            }
-            localStorage.removeItem('show_boas_vindas');
-            // --- buscar conquistas e mostrar alertas (utilitário compartilhado) ---
-            (async () => {
-                try {
-                    const conquistas = await window.carregarConquistasAPI?.();
-                    if (conquistas && conquistas.length) {
-                        // mostra todas como novas na primeira vez
-                        window.mostrarNovasConquistasLocal?.(conquistas, true);
-                    }
-                } catch (e) {
-                    console.error('Erro ao buscar conquistas no menu:', e);
-                }
-            })();
-        };
-        // Atualiza o avatar do rodapé com o valor salvo (se existir)
-        try {
-            const savedAvatar = localStorage.getItem('alunoAvatar');
-            if (savedAvatar) {
-                const menuImg = document.getElementById('menuAvatar');
-                if (menuImg) menuImg.src = savedAvatar;
-            }
-        } catch (e) {
-            console.warn('Erro ao carregar avatar do localStorage:', e);
-        }
-    });
+  document.addEventListener("DOMContentLoaded", async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      // ✅ Evita repetir a chamada se já buscou o aluno nesta sessão
+      if (sessionStorage.getItem("alunoCarregado") === "true") {
+          console.log("Aluno já carregado nesta sessão, ignorando nova chamada");
+          return;
+      }
+
+      try {
+          const res = await fetch(`${API_URL}/api/alunos/me`, {
+              headers: { "Authorization": `Bearer ${token}` }
+          });
+
+          if (!res.ok) throw new Error("Falha ao buscar aluno");
+
+          const aluno = await res.json();
+
+          // ✅ Marca que o aluno foi carregado nesta sessão
+          sessionStorage.setItem("alunoCarregado", "true");
+
+          // Mostrar overlay se for o primeiro login
+          if (aluno.primeiro_login) {
+              // Se for o primeiro login, limpa localStorage
+              const tokenTemp = token;
+              localStorage.clear();
+              localStorage.setItem("token", tokenTemp);
+
+              document.getElementById("nome-usuario").textContent = aluno.name;
+              document.getElementById("start-overlay").style.display = "flex";
+
+          }
+        
+          
+
+
+
+          // ================================
+          // FUNÇÃO GLOBAL DE INÍCIO
+          // ================================
+          window.startGame = async () => {
+              document.getElementById("start-overlay").style.display = "none";
+
+              try {
+                  await fetch(`${API_URL}/api/alunos/${aluno.id}/marcar-boas-vindas`, {
+                      method: "POST",
+                      headers: {
+                          "Authorization": `Bearer ${token}`,
+                          "Content-Type": "application/json"
+                      }
+                  });
+                  console.log("Boas-vindas marcadas com sucesso");
+              } catch (err) {
+                  console.error("Erro ao marcar boas-vindas:", err);
+              }
+
+              // ================================
+              // MOSTRAR CONQUISTAS AUTOMATICAMENTE
+              // ================================
+              try {
+                  const conquistas = await window.carregarConquistasAPI?.();
+                  if (conquistas?.length) {
+                      window.mostrarNovasConquistasLocal?.(conquistas, true);
+                  }
+              } catch (err) {
+                  console.error("Erro ao carregar conquistas:", err);
+              }
+          };
+
+      } catch (err) {
+          console.error("Erro ao carregar boas-vindas:", err);
+      }
+
+
+  });
 </script>
 
 
