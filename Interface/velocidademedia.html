@@ -401,8 +401,12 @@
     </div>
   </div>
 
+  
+    <script src="js/conquistas-utils.js"></script>
+    <script src="js/historico-formulas.js"></script>
+
   <script>
-    document.getElementById('velocidadeForm').addEventListener('submit', function(e) {
+    document.getElementById('velocidadeForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const distancia = parseFloat(document.getElementById('distancia').value.replace(',', '.'));
       const tempo = parseFloat(document.getElementById('tempo').value.replace(',', '.'));
@@ -427,6 +431,20 @@
 
     document.getElementById('res').innerHTML = resultado;
     document.getElementById('resultado').style.display = 'block';
+
+    try {
+          const resp = await enviarHistorico(10, { distancia, tempo}, { velocidade });
+          console.log('enviarHistorico resp:', resp);
+          if (resp && resp.novas_conquistas?.length) {
+            const conquistas = await window.carregarConquistasAPI?.() ?? [];
+            console.log('conquistas API:', conquistas);
+            if (conquistas.length) {
+              window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+            }
+          }
+        } catch (err) {
+          console.error('Erro ao enviar histórico (Velocidade Média):', err);
+        }
 
     });
   </script>

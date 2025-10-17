@@ -378,8 +378,12 @@
     </div>
   </div>
 
+  
+    <script src="js/conquistas-utils.js"></script>
+    <script src="js/historico-formulas.js"></script>
+
   <script>
-    document.getElementById('mruForm').addEventListener('submit', function(event) {
+    document.getElementById('mruForm').addEventListener('submit', async function(event) {
       event.preventDefault();
 
       var s0 = parseFloat(document.getElementById('s0Input').value);
@@ -407,6 +411,21 @@
         Somamos com a posição inicial:<br>
         <b>S = ${s.toFixed(2)} m</b><br>
       `;
+
+         try {
+          const resp = await enviarHistorico(10, { s0, v, t }, { s});
+          console.log('enviarHistorico resp:', resp);
+          if (resp && resp.novas_conquistas?.length) {
+            const conquistas = await window.carregarConquistasAPI?.() ?? [];
+            console.log('conquistas API:', conquistas);
+            if (conquistas.length) {
+              window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+            }
+          }
+        } catch (err) {
+          console.error('Erro ao enviar histórico (Cinemática):', err);
+        }
+
     });
   </script>
 </body>

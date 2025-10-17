@@ -370,8 +370,12 @@
     </div>
   </div>
 
+  
+    <script src="js/conquistas-utils.js"></script>
+    <script src="js/historico-formulas.js"></script>
+
   <script>
-    document.getElementById('eletroForm').addEventListener('submit', function(e) {
+    document.getElementById('eletroForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
       const q1 = parseFloat(document.getElementById('q1').value);
@@ -401,6 +405,20 @@
 
       document.getElementById('res').innerHTML = resultado;
       document.getElementById('resultado').style.display = 'block';
+
+      try {
+          const resp = await enviarHistorico(10, { k, q1, q2, d }, { forca});
+          console.log('enviarHistorico resp:', resp);
+          if (resp && resp.novas_conquistas?.length) {
+            const conquistas = await window.carregarConquistasAPI?.() ?? [];
+            console.log('conquistas API:', conquistas);
+            if (conquistas.length) {
+              window.mostrarNovasConquistasLocal?.(conquistas, false, resp.novas_conquistas);
+            }
+          }
+        } catch (err) {
+          console.error('Erro ao enviar histórico (Eletrostática):', err);
+        }
     });
   </script>
 </body>
