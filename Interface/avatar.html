@@ -201,7 +201,7 @@ h2 {
 
 /* Avatar principal */
 .main-avatar {
-    margin-top: -20px;
+    margin-top: -4.5px;
     width: 110px;
     height: 110px;
     border-radius: 50%;
@@ -221,7 +221,7 @@ h2 {
 
 
 .user-name {
-    margin-top: 9px;
+    margin-top: 8px;
     font-size: 18px;
     font-weight: bold;
     color: #5E097E;
@@ -270,8 +270,107 @@ h4 {
 }
 
 .avatar-options img:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
+
+
+   @media (min-width: 1440px) {
+       .background-logo-container img {
+        width: 150px;
+        height: auto;
+        }
+
+        .background-logo-container span {
+        font-size: 58px;
+
+        }
+
+      .menu-container {
+        top: 5px;
+        width: 500px;
+        height: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 0;
+        position: relative;
+        transform: translateX(-1px); /*GARANTE CENTRALIZAÇÃO IGUAL LOGIN*/
+      }
+
+            /* Estilo da imagem do logo no cabeçalho */
+        .header-container img {
+            width: 75px; /* Largura da imagem */
+            margin-right: 15px; /* Espaço à direita da imagem */
+        }
+
+        /* Estilo do título dentro do cabeçalho */
+        .header-container h3 {
+            font-size: 24px; /* Tamanho da fonte menor */
+        }
+
+      h2 {
+        font-size: 26px;
+      }
+
+      .back-btn span {
+        font-size: 14px;
+        padding: 12px 14px; ;
+      }
+
+      .back-btn:hover{
+         transform: scale(1.05);
+      }
+
+      .upload-btn img{
+        width: 50px;
+        height: 50px;
+      }
+
+      .upload-btn span {
+        font-size: 12px;
+        padding: 5px 8px;
+      }
+
+      #mainAvatar {
+        margin-top: -8px;
+        width: 140px;
+        height: 140px;
+      }
+
+    
+
+       .user-name {
+        margin-top: 10px;
+        font-size: 20px;
+      }
+
+      h4{
+        font-size: 16px;
+      }
+
+      .avatar-options {
+          gap: 35px;
+      }
+
+      .avatar-options img {
+          width: 75px;
+          height: 75px;
+      }
+
+    
+
+    .footer img {
+        width: 70px; /* Largura aumentada */
+        height: 65px; /* Altura aumentada */
+        padding: 25px; /* Remove padding para não cortar imagens */
+    }
+
+}
+
+   
+
+
+
 
 </style>
 </head>
@@ -297,7 +396,7 @@ h4 {
     <!-- Linha com botão voltar, título e upload -->
     <div class="header-section">
       <a href="javascript:history.back()" class="back-btn">
-        <span>&lt; Voltar</span>
+        <span>&#10094; Voltar</span>
       </a>
 
       <h2>Alterar Foto do Perfil</h2>
@@ -354,47 +453,45 @@ h4 {
   function trocarAvatar(src) {
     document.getElementById('mainAvatar').src = src;
     try {
-      localStorage.setItem('alunoAvatar', src);
+      sessionStorage.setItem('alunoAvatar', src);
     } catch (e) {
-      console.warn('Não foi possível salvar o avatar no localStorage:', e);
+      console.warn('Não foi possível salvar o avatar no sessionStorage:', e);
     }
   }
-  
-  //Nome do usuário
+
   document.addEventListener("DOMContentLoaded", () => {
-      const nome = localStorage.getItem("alunoNome");
-      if (nome) {
-          document.getElementById("nome-usuario-avatar").textContent = nome || 'user';
+      // Puxa o nome do sessionStorage (já carregado no login)
+      const nome = sessionStorage.getItem("alunoNome") || "user";
+      document.getElementById("nome-usuario-avatar").textContent = nome;
+
+      // Carrega avatar salvo no sessionStorage (temporário)
+      const savedAvatar = sessionStorage.getItem('alunoAvatar');
+      if (savedAvatar) {
+        document.getElementById('mainAvatar').src = savedAvatar;
       }
-      else {
-          document.getElementById("nome-usuario-avatar").textContent = 'user';
-      }
-    // Carrega avatar salvo (se houver)
-    const savedAvatar = localStorage.getItem('alunoAvatar');
-    if (savedAvatar) {
-    const main = document.getElementById('mainAvatar');
-    main.src = savedAvatar;
-    }
   });
 
   // Upload de imagem personalizada
   document.getElementById("uploadInput").addEventListener("change", function(event) {
-      const file = event.target.files[0];
-      if (file) {
-          const reader = new FileReader();
-          reader.onload = function(e) {
-              const dataUrl = e.target.result;
-              document.getElementById("mainAvatar").src = dataUrl;
-              try {
-                localStorage.setItem('alunoAvatar', dataUrl);
-              } catch (err) {
-                console.warn('Não foi possível salvar avatar no localStorage:', err);
-              }
-          }
-          reader.readAsDataURL(file);
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        document.getElementById("mainAvatar").src = dataUrl;
+        try {
+          sessionStorage.setItem('alunoAvatar', dataUrl);
+        } catch (err) {
+          console.warn('Não foi possível salvar o avatar no sessionStorage:', err);
+        }
       }
+      reader.readAsDataURL(file);
+    }
   });
 </script>
+
+
+
 
 </body>
 </html>

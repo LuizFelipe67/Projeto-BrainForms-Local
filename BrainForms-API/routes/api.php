@@ -16,6 +16,13 @@ use App\Models\Conquista;
 Route::post('/alunos/cadastrar', [AlunoController::class, 'store']);
 Route::post('alunos/login', [AuthController::class, 'login']);
 
+//salvar o nome do aluno logado
+Route::middleware('auth:sanctum')->get('/alunos/nome', function (Request $request) {
+    return response()->json([
+        'name' => $request->user()->name,
+    ]);
+});
+
 Route::post('/alunos/{id}/marcar-boas-vindas', [AlunoController::class, 'marcarBoasVindas']);
 
 

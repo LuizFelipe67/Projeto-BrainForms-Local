@@ -84,29 +84,53 @@ body {
             color: white;
         }
 
-.content {
+      /* Seção abaixo do cabeçalho */
+    .header-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 15px;
+    }
+
+    /* botão de voltar: estilo único e um pouco maior */
+    .back-btn {
+      display: flex; /* garante alinhamento vertical se quiser adicionar ícone depois */
+      flex-direction: column;
+      align-items: center;
+      font-size: 14px; /* controla texto/label */
+      padding: 4px 6px; /* aumenta a área clicável */
+      color: black; /* sobrescreve cor de link padrão (azul) */
+      text-decoration: none;
+    }
+
+    .back-btn span {
+      font-size: 14px;
+      background-color: #e2e2e2;
+      padding: 12px 10px; /* maior que o upload */
+      border-radius: 16px;
+      box-shadow: #615f5f 0px 4px 4px 0px;
+      display: inline-block;
+    }
+
+    .back-btn:hover{
+         transform: scale(1.05);
+      }
+
+    .header-section h2 {
+        text-align: left;
+        color: #5E097E;
+        font-size: 20px;
+        flex-grow: 1;
+        margin-left: 5px;
+    }
+
+    
+    .content {
   padding: 20px;
   text-align: center;
   flex: 1;
 }
 
-.content h1 {
-  font-size: 20px;
-  color: #5E097E;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-}
-
-.content h1 button {
-  background: none;
-  border: none;
-  font-size: 22px;
-  color: #5E097E;
-  margin-right: 10px;
-  cursor: pointer;
-}
 
 h2 {
   font-size: 18px;
@@ -364,22 +388,21 @@ button.calc-btn:hover {
   margin-bottom: 20px;
 }
 
- .footer {
-            background-color: #300A3E; /* Cor do rodapé */
-            display: flex; /* Flexbox */
-            align-items: center; /* Centraliza verticalmente */
-            bottom: 0; /* Fixa na parte inferior */
-            width: 100%; /* Ocupa toda a largura */
-            height: 80px; /* Altura aumentada do rodapé */
-            gap: 30px; /* Espaço entre os ícones */
-        }
+    /* Rodapé */
+    .footer {
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: auto;
+        display: flex;
+        height: 80px;
+    }
 
-        /* Estilo das imagens do rodapé */
-        .footer img {
-            width: 65px; /* Largura aumentada */
-            height: 60px; /* Altura aumentada */
-            padding: 25PX; /* Remove padding para não cortar imagens */
-        }
+    .footer img {
+      margin-top: 80px;
+        width: 65px;
+        height: 60px;
+        padding: 25px;
+    }
 
 
 /* Responsivo para telas pequenas */
@@ -524,12 +547,18 @@ button.calc-btn:hover {
       <h3><a href="calcular-matematica.html">BrainForms</a></h3>
     </div>
 
-    <div class="content">
-      <div class="topo">
-        <button class="voltar-btn" aria-label="Voltar" onclick="window.location.href='calcular-matematica.html'">&lt;</button>
-        <h1>Cálculo de Geometria</h1>
-      </div>
 
+    
+    <!-- Linha com botão voltar e título -->
+    <div class="header-section">
+      <a href="javascript:history.back()" class="back-btn">
+        <span>&#10094; Voltar</span>
+      </a>
+
+      <h2>Cálculos Geométricos</h2>
+    </div>
+
+    <div class="content"> 
       <!-- Definição -->
     <div class="def-container">
       <h2 id="def">Definição</h2>
@@ -589,13 +618,13 @@ button.calc-btn:hover {
       </section>
     </div>
     <!-- Footer (fora da content, mas dentro da container) -->
+ <!-- Rodapé -->
     <div class="footer">
       <a href="menu.html">
-        <img src="Imagens/inicio.png" alt="Início" />
+        <img src="Imagens/inicio.png" alt="Início">
       </a>
-      <img src="Imagens/conquistas.png" alt="Conquistas" />
-      <img src="Imagens/menu.png" alt="Menu" />
     </div>
+
     </div>
   </div>
 

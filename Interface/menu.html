@@ -209,6 +209,10 @@ body {
    
 }
 
+#rodape_menu {
+    width: 60px;
+}
+
 
 
 /* Avatar circular com anel gradiente uniforme */
@@ -451,15 +455,16 @@ body {
 
         /* Rodapé: centralizar ícones e manter espaçamento consistente com outras telas */
         .footer {
-            justify-content: center;
-            align-items: center;
             gap: 120px; /* mesmo espaçamento definido fora da media query */
-            padding: 0;
         }
 
        .footer img {
-        width: 67px;
-        height: 62px;
+        width: 70px;
+        height: 65px;
+        }
+
+        #rodape_menu {
+        width: 63px;
         }
 
         /* Avatar circular com anel gradiente uniforme */
@@ -533,7 +538,7 @@ body {
              <img src="Imagens/conquistas.png" alt="Conquistas" style= "padding-left: 7px;"> <!-- Ícone das conquistas -->
             </a>
             
-            <img src="Imagens/menu.png" alt="Menu" style="width: 60px;"> <!-- Ícone do menu -->
+            <img id="rodape_menu" src="Imagens/menu.png" alt="Menu"> <!-- Ícone do menu -->
         </div>
 
     </div>
@@ -551,13 +556,12 @@ body {
 <script src="js/conquistas-utils.js"></script>
 
 <script>
-    
-    // Atualiza o avatar salvo localmente
-    const savedAvatar = localStorage.getItem("alunoAvatar");
-    if (savedAvatar) {
-        const menuAvatar = document.getElementById("menuAvatar");
-        if (menuAvatar) menuAvatar.src = savedAvatar;
-    }
+  // Atualiza o avatar salvo na session
+  const savedAvatar = sessionStorage.getItem("alunoAvatar");
+  if (savedAvatar) {
+      const menuAvatar = document.getElementById("menuAvatar");
+      if (menuAvatar) menuAvatar.src = savedAvatar;
+  }
 
   document.addEventListener("DOMContentLoaded", async () => {
       const token = localStorage.getItem("token");
@@ -565,7 +569,9 @@ body {
 
       // ✅ Evita repetir a chamada se já buscou o aluno nesta sessão
       if (sessionStorage.getItem("alunoCarregado") === "true") {
-          console.log("Aluno já carregado nesta sessão, ignorando nova chamada");
+          // Exibe o nome do aluno se já estiver na session
+          const nomeSalvo = sessionStorage.getItem("alunoNome") || "user";
+          document.getElementById("nome-usuario").textContent = nomeSalvo;
           return;
       }
 
@@ -581,21 +587,19 @@ body {
           // ✅ Marca que o aluno foi carregado nesta sessão
           sessionStorage.setItem("alunoCarregado", "true");
 
+          // ✅ Salva o nome do aluno na session (em todos os logins)
+          sessionStorage.setItem("alunoNome", aluno.name);
+          document.getElementById("nome-usuario").textContent = aluno.name;
+
           // Mostrar overlay se for o primeiro login
           if (aluno.primeiro_login) {
-              // Se for o primeiro login, limpa localStorage
+              // Limpa localStorage mas mantém o token
               const tokenTemp = token;
               localStorage.clear();
               localStorage.setItem("token", tokenTemp);
 
-              document.getElementById("nome-usuario").textContent = aluno.name;
               document.getElementById("start-overlay").style.display = "flex";
-
           }
-        
-          
-
-
 
           // ================================
           // FUNÇÃO GLOBAL DE INÍCIO
@@ -630,12 +634,41 @@ body {
           };
 
       } catch (err) {
-          console.error("Erro ao carregar boas-vindas:", err);
+          console.error("Erro ao carregar aluno:", err);
       }
+  });
 
+  // ================================
+  // Função para trocar avatar
+  // ================================
+  function trocarAvatar(src) {
+      document.getElementById('mainAvatar').src = src;
+      try {
+          sessionStorage.setItem('alunoAvatar', src);
+      } catch (e) {
+          console.warn('Não foi possível salvar o avatar na sessionStorage:', e);
+      }
+  }
 
+  // Upload de imagem personalizada
+  document.getElementById("uploadInput").addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              const dataUrl = e.target.result;
+              document.getElementById("mainAvatar").src = dataUrl;
+              try {
+                  sessionStorage.setItem('alunoAvatar', dataUrl);
+              } catch (err) {
+                  console.warn('Não foi possível salvar avatar na sessionStorage:', err);
+              }
+          }
+          reader.readAsDataURL(file);
+      }
   });
 </script>
+
 
 
 </body>
