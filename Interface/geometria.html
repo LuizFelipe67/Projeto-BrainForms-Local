@@ -366,7 +366,7 @@ button.calc-btn:hover {
   content: "";
   position: absolute;
   top: 50%;
-  width: 30%;
+  width: 29%;
   height: 1px;
   background-color: #000000;
 }
@@ -380,6 +380,26 @@ button.calc-btn:hover {
   right: 0;
   margin-right: -3%;
 }
+
+/* Container para h6 e botão info */
+.input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.calculo h6 {
+  text-align: left;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: -30px;
+}
+
+
 
 
 .dropdown-container {
@@ -513,6 +533,15 @@ button.calc-btn:hover {
     min-width: 250px;
   }
 
+  .calculo h6 {
+    font-size: 16px;
+  }
+
+  .info-btn img {
+    width: 28px;
+    height: 28px;
+  }
+
   .calculo input[type="number"] {
     font-size: 18px;
   }
@@ -587,18 +616,60 @@ button.calc-btn:hover {
       <!-- Formulários -->
       <form id="areaCirculoForm" class="calculo-form active calculo" aria-label="Formulário para calcular área do círculo" onsubmit="event.preventDefault(); calcularCirculo();">
         <h2>Área do Círculo</h2>
+
+        <!-- Container com h6 e botão info -->
+        <div class="input-header">
+          <h6>Insira os valores para o cálculo</h6>
+          
+          <div class="direita">
+            <button type="button" class="info-btn"
+              data-info="Para calcular a área do círculo, insira o valor do raio. A fórmula utilizada é: A = π × r²"
+              onclick="showInfo(this)">
+              <img src="Imagens/info.png" alt="Informação">
+            </button>
+          </div>
+        </div>
+
         <input type="number" id="raioCirculo" placeholder="Digite o raio" min="0" step="any" aria-required="true" />
         <button type="submit" class="calc-btn">Calcular</button>
       </form>
 
       <form id="volumeEsferaForm" class="calculo-form calculo" aria-label="Formulário para calcular volume da esfera" onsubmit="event.preventDefault(); calcularEsfera();">
         <h2>Volume da Esfera</h2>
+
+        <!-- Container com h6 e botão info -->
+        <div class="input-header">
+          <h6>Insira os valores para o cálculo</h6>
+          
+          <div class="direita">
+            <button type="button" class="info-btn"
+              data-info="Para calcular o volume da esfera, insira o valor do raio. A fórmula utilizada é: V = (4/3) × π × r³"
+              onclick="showInfo(this)">
+              <img src="Imagens/info.png" alt="Informação">
+            </button>
+          </div>
+        </div>
+
         <input type="number" id="raioEsfera" placeholder="Digite o raio" min="0" step="any" aria-required="true" />
         <button type="submit" class="calc-btn">Calcular</button>
       </form>
 
       <form id="areaTrianguloForm" class="calculo-form calculo" aria-label="Formulário para calcular área do triângulo" onsubmit="event.preventDefault(); calcularTriangulo();">
         <h2>Área do Triângulo</h2>
+
+        <!-- Container com h6 e botão info -->
+        <div class="input-header">
+          <h6>Insira os valores para o cálculo</h6>
+          
+          <div class="direita">
+            <button type="button" class="info-btn"
+              data-info="Para calcular a área do triângulo, insira os valores da base e da altura. A fórmula utilizada é: A = (b × h) / 2"
+              onclick="showInfo(this)">
+              <img src="Imagens/info.png" alt="Informação">
+            </button>
+          </div>
+        </div>
+
         <input type="number" id="baseTriangulo" placeholder="Digite a base" min="0" step="any" aria-required="true" />
         <input type="number" id="alturaTriangulo" placeholder="Digite a altura" min="0" step="any" aria-required="true" />
         <button type="submit" class="calc-btn">Calcular</button>
@@ -606,6 +677,20 @@ button.calc-btn:hover {
 
       <form id="volumeCilindroForm" class="calculo-form calculo" aria-label="Formulário para calcular volume do cilindro" onsubmit="event.preventDefault(); calcularCilindro();">
         <h2>Volume do Cilindro</h2>
+
+        <!-- Container com h6 e botão info -->
+        <div class="input-header">
+          <h6>Insira os valores para o cálculo</h6>
+          
+          <div class="direita">
+            <button type="button" class="info-btn"
+              data-info="Para calcular o volume do cilindro, insira os valores do raio e da altura. A fórmula utilizada é: V = π × r² × h"
+              onclick="showInfo(this)">
+              <img src="Imagens/info.png" alt="Informação">
+            </button>
+          </div>
+        </div>
+
         <input type="number" id="raioCilindro" placeholder="Digite o raio" min="0" step="any" aria-required="true" />
         <input type="number" id="alturaCilindro" placeholder="Digite a altura" min="0" step="any" aria-required="true" />
         <button type="submit" class="calc-btn">Calcular</button>
@@ -620,7 +705,7 @@ button.calc-btn:hover {
     <!-- Footer (fora da content, mas dentro da container) -->
  <!-- Rodapé -->
     <div class="footer">
-      <a href="menu.html">
+      <a href="inicio.html">
         <img src="Imagens/inicio.png" alt="Início">
       </a>
     </div>
@@ -629,7 +714,7 @@ button.calc-btn:hover {
   </div>
 
 
-
+<script src="js/info-button.js"></script>
 <script src="js/conquistas-utils.js"></script>
 <script src="js/historico-formulas.js"></script>
 

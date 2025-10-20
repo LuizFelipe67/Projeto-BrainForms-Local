@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AvatarAlunoController;
 use App\Http\Controllers\ConquistaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MathResponseController; 
@@ -16,18 +17,18 @@ use App\Models\Conquista;
 Route::post('/alunos/cadastrar', [AlunoController::class, 'store']);
 Route::post('alunos/login', [AuthController::class, 'login']);
 
-//salvar o nome do aluno logado
-Route::middleware('auth:sanctum')->get('/alunos/nome', function (Request $request) {
-    return response()->json([
-        'name' => $request->user()->name,
-    ]);
-});
 
 Route::post('/alunos/{id}/marcar-boas-vindas', [AlunoController::class, 'marcarBoasVindas']);
 
-
 Route::middleware('auth:sanctum')->get('/alunos/me', function (Request $request) {
     return response()->json($request->user());
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('avatar/update', [AvatarAlunoController::class, 'update']);
+    Route::get('avatar/show', [AvatarAlunoController::class, 'show']);
+    Route::delete('avatar/delete', [AvatarAlunoController::class, 'delete']);
+
 });
 
 // Rotas protegidas

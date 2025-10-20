@@ -292,7 +292,91 @@ hr {
     background: #9036e4;
 }
 
+/* Responsivo para telas pequenas (mobile) - Conquistas */
+@media (max-width: 480px) {
+    body {
+        margin: 0;
+        padding-bottom: 0;
+        flex-direction: column;
+    }
 
+    .background-logo-container {
+        display: none;
+    }
+
+    .menu-container {
+        top: -1px;
+        position: relative;
+        margin: 0 auto;
+        width: 95%;
+        height: 98vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+
+    .avatar-container img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .user-name {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .conquista-header h2 {
+        font-size: 16px;
+        margin-bottom: -10px;
+    }
+
+    .conquista-header img {
+        width: 80px;
+        margin-bottom: 10px;
+    }
+
+    .conquistas-panel {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        padding: 5px 10px;
+        justify-items: center;
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+
+    .conquista img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .conquista span {
+        font-size: 8px;
+    }
+
+    #conquista-total {
+        font-size: 12px;
+        margin: 5px 0 15px 0;
+    }
+
+    /* Footer - botão início à esquerda e levemente mais alto */
+    .footer {
+        position: relative;
+        margin-top: -60px;
+        padding-bottom: 40px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .footer a img {
+        width: 65px;
+        height: 60px;
+        margin-bottom: 15px; /* sobe levemente o botão */
+    }
+}
    @media (min-width: 1440px) {
        .background-logo-container img {
         width: 150px;
@@ -398,7 +482,7 @@ hr {
 <div class="menu-container">
   <div class="header-container">
     <img src="Imagens/Logo sem Fundo.png" alt="Logo BrainForms">
-    <h3><a href="menu.html">BrainForms</a></h3>
+    <h3><a href="inicio.html">BrainForms</a></h3>
   </div>
 
   <div class="progress-section">
@@ -417,10 +501,26 @@ hr {
 
   <p id="nome-usuario" class="user-name"></p>
 
+  <!-- Botão de informação -->
+  <script src="js/info-button.js"></script>
+  <div class="direita">
+    <button class="info-btn"
+      data-info="Aqui você pode ver todas suas conquistas 
+      desbloquadas no BrainForms. Ao clicar sobre 
+      uma conquista do painel, você verá mais detalhes sobre ela."
+      onclick="showInfo(this)">
+      <img src="Imagens/info.png" alt="Informação">
+    </button>
+  </div>
+
   <div class="conquista-header">
+
     <h2>Painel de Conquistas</h2>
+
     <img src="Imagens/conquistasTitulo.png" alt="Ícone Conquistas">
   </div>
+
+ 
 
   <hr>
 
@@ -431,7 +531,7 @@ hr {
   <p id="conquista-total"></p>
 
   <div class="footer">
-    <a href="menu.html">
+    <a href="inicio.html">
       <img src="Imagens/inicio.png" alt="Início">
     </a>
   </div>
@@ -448,7 +548,8 @@ hr {
   </div>
 </div>
 
-<<script src="js/conquistas-utils.js"></script>
+<script src="js/conquistas-utils.js"></script>
+<script src="js/info-button.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
@@ -462,10 +563,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     const nome = sessionStorage.getItem("alunoNome") || "user";
     nomeUsuarioSpan.textContent = nome;
 
-    // --- Pega o avatar da sessionStorage ---
+    // --- Carrega avatar (primeiro do sessionStorage, depois do backend) ---
     const savedAvatar = sessionStorage.getItem("alunoAvatar");
     if (savedAvatar && menuAvatar) {
         menuAvatar.src = savedAvatar;
+    } else {
+        // Se não tiver no sessionStorage, busca do backend
+        const token = sessionStorage.getItem("token");
+        if (token) {
+            try {
+                const response = await fetch("http://localhost:8000/api/avatar/show", {
+                    headers: { 
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/json",
+                    },
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.avatar_url && menuAvatar) {
+                        menuAvatar.src = data.avatar_url;
+                        sessionStorage.setItem("alunoAvatar", data.avatar_url);
+                    }
+                }
+            } catch (error) {
+                console.warn("Erro ao carregar avatar:", error);
+            }
+        }
     }
 
     // --- Renderiza painel de conquistas ---
@@ -529,14 +652,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderizarPainel(conquistas || []);
 
     // Exibe overlay de boas-vindas se necessário
-    let mostrados = JSON.parse(localStorage.getItem("boas_vindas_mostrada") || "{}");
+    let mostrados = JSON.parse(sessionStorage.getItem("boas_vindas_mostrada") || "{}");
     if (!mostrados[nome]) {
         overlay.style.display = "flex";
 
         window.startGame = async () => {
             overlay.style.display = "none";
             mostrados[nome] = true;
-            localStorage.setItem("boas_vindas_mostrada", JSON.stringify(mostrados));
+            sessionStorage.setItem("boas_vindas_mostrada", JSON.stringify(mostrados));
 
             // Mostra conquistas novas na primeira vez (utilitário)
             window.mostrarNovasConquistasLocal?.(conquistas || [], true);

@@ -5,7 +5,7 @@
 (function () {
   async function carregarConquistasAPI() {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       if (!token) return [];
 
   const res = await fetch(`${API_URL}/api/alunos/conquistas`, {
@@ -91,7 +91,7 @@
 
 
   function mostrarNovasConquistasLocal(conquistas, primeiraVez = false, novasIds = null) {
-    const conquistasAntigas = JSON.parse(localStorage.getItem('conquistasAnteriores')) || [];
+    const conquistasAntigas = JSON.parse(sessionStorage.getItem('conquistasAnteriores')) || [];
 
     let novas = [];
     // Se backend informou IDs recém-desbloqueadas, use isso como fonte de verdade
@@ -106,7 +106,7 @@
 
     if (!novas.length) {
       // nenhuma nova, apenas atualiza o storage
-      localStorage.setItem('conquistasAnteriores', JSON.stringify(conquistas));
+      sessionStorage.setItem('conquistasAnteriores', JSON.stringify(conquistas));
       return;
     }
 
@@ -138,7 +138,7 @@
   modal.style.display = 'flex';
 
     // atualizar storage marcando todas as conquistas atuais como anteriores (consideradas lidas)
-    localStorage.setItem('conquistasAnteriores', JSON.stringify(conquistas));
+    sessionStorage.setItem('conquistasAnteriores', JSON.stringify(conquistas));
   }
 
   window.carregarConquistasAPI = carregarConquistasAPI;

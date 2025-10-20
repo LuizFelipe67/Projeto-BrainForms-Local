@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu - BrainForms</title>
+    
+    <style>
+        
+        /* Estiliza o corpo da página */
+body {
+    font-family: 'Roboto', sans-serif; /* Fonte da página */
+    background-color: #775085; /* Cor de fundo roxa */
+    display: flex; /* Usando flexbox para centralizar conteúdo */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    min-height: 100vh; /* Altura da tela inteira */
+    margin: 0; /* Remove margens padrão */
+    padding-bottom: 200px; /* Espaço EXTRA abaixo da box */
+    overflow-y: auto; /* Permite rolar verticalmente */
+}
+
+ /* LOGO E TEXTO NO CANTO SUPERIOR ESQUERDO DO FUNDO */
+    .background-logo-container {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 0;
+    }
+
+    .background-logo-container img {
+      width: 100px;
+      height: auto;
+    }
+
+    .background-logo-container span {
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+      font-family: 'Roboto', sans-serif;
+    }
+
+/* Container principal do menu */
+.menu-container {
+    background-color: #fff; /* Fundo branco */
+    border-radius: 12px; /* Cantos arredondados */
+    box-shadow: 0 0 20px rgba(34, 2, 45, 0.6); /* Sombra mais visível */
+    text-align: center; /* Centraliza texto */
+    top: 120px;
+    width: 400px;
+    height: 600px;
+    display: flex; /* Flexbox para organização */
+    flex-direction: column; /* Itens em coluna */
+    overflow: hidden; /* Esconde overflow */
+    position: relative; /* Necessário para posicionar o rodapé */
+}
+
+
+/* Cabeçalho dentro do container do menu */
+.header-container {
+    display: flex; /* Flexbox para alinhar texto e imagem na horizontal */
+    align-items: center; /* Alinha verticalmente ao centro */
+    background: linear-gradient(to bottom, #000000 0%, #3A024E 80%); /* Gradiente invertido */
+    padding: 15px 20px; /* Espaçamento interno */
+    border-radius: 12px 12px 0 0; /* Cantos arredondados só no topo */
+    color: white; /* Cor do texto */
+    width: 100%; /* Largura total do container */
+    margin-bottom: 30px; /* Espaço abaixo do cabeçalho */
+}
+
+/* Estilo da imagem do logo no cabeçalho */
+.header-container img {
+    width: 65px; /* Largura da imagem */
+    margin-right: 10px; /* Espaço à direita da imagem */
+}
+
+/* Estilo do título dentro do cabeçalho */
+.header-container h3 {
+    margin: 0; /* Remove margem padrão */
+    font-size: 20px; /* Tamanho da fonte menor */
+}
+
+/* Estilo do título da seção principal */
+.menu-container h2 {
+    text-align: left; /* Alinha o texto à esquerda */
+    padding-left: 20px; /* Espaço à esquerda */
+    margin-top: 2px; /* Pequena margem superior */
+    color: #5E097E; /* Cor roxa */
+    margin-bottom: -30px;
+}
+
+/* Container que agrupa os botões */
+.button-container {
+    flex-grow: 1;       /* ocupa todo espaço restante */
+    overflow-y: auto;   /* rolagem vertical se necessário */
+    display: flex; /* Flexbox */
+    flex-direction: column; /* Itens em coluna */
+    gap: 10px; /* Espaço entre os botões */
+    align-items: center; /* Centraliza horizontalmente */
+    margin-top: 60px; /* Espaço acima */
+    padding: 0 20px; /* Espaçamento lateral */
+    overflow: visible;
+
+}
+
+/* Linha que contém dois botões lado a lado */
+.button-container .row {
+    display: flex; /* Flexbox */
+    gap: 20px; /* Espaço entre os botões */
+    justify-content: center; /* Centraliza os botões */
+    width: 100%; /* Ocupa toda largura */
+}
+
+/* Estilo dos botões dentro do container do menu */
+.menu-container button {
+    background-color: #F2F3FD; /* Fundo claro */
+    color: #5E097E; /* Texto roxo */
+    border: 2px solid #440459; /* Borda mais grossa */
+    border-radius: 16px; /* Cantos mais arredondados */
+    padding: 10px; /* Espaçamento interno reduzido */
+    font-size: 16px; /* Tamanho da fonte menor */
+    font-weight: bold; /* Negrito */
+    cursor: pointer; /* Cursor tipo mãozinha */
+    width: 100%; /* Largura total do botão */
+    height: auto;
+    max-height: 160px;
+    min-height: 80px;        /* altura mínima */
+    display: flex; /* Flexbox para alinhar imagem e texto */
+    flex-direction: column; /* Organiza itens em coluna */
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    box-shadow: 10px 0 14px rgba(34, 2, 45, 0.5); /* Sombra para a direita */
+    flex-shrink: 1;          /* permite encolher */
+    overflow: hidden;
+    white-space: normal;     /* permite quebra de linha */
+    text-overflow: ellipsis;
+}
+
+/* Efeito visual ao passar o mouse sobre os botões */
+.menu-container button:hover {
+    box-shadow: 12px 0 18px rgba(48, 10, 62, 0.7); /* Sombra mais intensa à direita */
+    background-color: #D8D2F0;
+    transform: scale(1.02);
+}
+
+/* Estilo para a imagem dentro dos botões */
+.menu-container button img {
+    width: 50px; /* Largura da imagem menor */
+    height: 50px; /* Altura da imagem menor */
+    margin-bottom: 15px; /* Espaço abaixo da imagem */
+    flex-shrink: 0;      /* imagem não encolhe */
+}
+
+/* Estilo do texto dentro dos botões (span) */
+.button-container span {
+    font-size: 16px; /* Fonte menor para melhor adaptação */
+    word-break: break-word; /* Quebra o texto grande */
+}
+
+/* Botões com imagem e texto lado a lado */
+.menu-container .questionarios-button,
+.menu-container .minigames-button {
+    flex-direction: row;
+    align-items: center;
+    height: auto;
+    max-height: 160px;
+}
+
+/* Ajuste da imagem no botão "Questionários" */
+.menu-container .questionarios-button img {
+    margin-right: 15px;
+    margin-bottom: 0;
+    width: 50px;
+    height: 50px;
+}
+
+/* Ajuste da imagem no botão "Mini Games" */
+.menu-container .minigames-button img {
+    margin-bottom: -5px;
+    margin-left: 15px;
+    width: 50px;
+    height: 50px;
+}
+
+/* Rodapé fixo na parte inferior do container */
+.footer {
+    background-color: #300A3E; /* Cor do rodapé */
+    display: flex; /* Flexbox */
+    justify-content: center; /* Centraliza os ícones */
+    align-items: center; /* Centraliza verticalmente */
+    position: absolute; /* Posicionamento absoluto dentro do container */
+    bottom: 0; /* Fixa na parte inferior */
+    width: 100%; /* Ocupa toda a largura */
+    height: 80px; /* Altura aumentada do rodapé */
+    gap: 80px; /* Espaço entre os ícones */
+    padding: 0; /* remove padding que pode deslocar o conteúdo */
+}
+
+/* Estilo das imagens do rodapé */
+.footer img {
+    width: 65px;
+    height: 60px;
+    padding: 0;
+    display: block;
+    margin: 0; 
+   
+}
+
+
+
+/* Avatar circular com anel gradiente uniforme */
+.footer a[href="avatar.html"] {
+   
+    --ring: 3px;
+
+    display: inline-grid;
+    place-items: center;
+    width: 58px;   /* tamanho total com anel */
+    height: 58px;
+    border-radius: 50%;
+    position: relative; /* needed for ::before ring */
+    background:  linear-gradient(180deg, #00f7ff 0%, #6a00ff 35%, #f82dff 100%); 
+    box-shadow: 0 0 8px rgba(106,0,255,0.10);
+}
+
+
+/* Garante que a imagem do avatar fique certinha dentro do anel */
+#menuAvatar {
+    /* size avatar to fit inside the punched ring */
+    width: calc(100% - (var(--ring) * 2));
+    height: calc(100% - (var(--ring) * 2));
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 1; /* sit above the ::before ring */
+}
+
+
+
+
+.blurred {
+  filter: blur(5px);
+}
+
+.start-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, rgba(94, 9, 126, 0.95) 0%, rgba(119, 80, 133, 0.95) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.start-box {
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  min-height: 450px;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tutorial-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.tutorial-content img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.start-box h1 {
+  font-size: 32px;
+  color: #5E097E;
+  margin: 0;
+  font-weight: 700;
+}
+
+.start-box h3 {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+}
+
+.tutorial-navigation {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.tutorial-navigation button {
+  flex: 1;
+  padding: 14px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-skip {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.btn-skip:hover {
+  background-color: #d0d0d0;
+  transform: translateY(-2px);
+}
+
+.btn-next {
+  background: linear-gradient(135deg, #5E097E 0%, #9036e4 100%);
+  color: white;
+}
+
+.btn-next:hover {
+  background: linear-gradient(135deg, #9036e4 0%, #b368f5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(94, 9, 126, 0.4);
+}
+
+.progress-dots {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #d0d0d0;
+  transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+  background: linear-gradient(135deg, #5E097E 0%, #9036e4 100%);
+  width: 30px;
+  border-radius: 5px;
+}
+
+
+ /* Responsivo para telas pequenas */
+     @media (max-width: 480px) {
+        body {
+          margin: 0;
+          bottom: 0;
+          padding-bottom: 0;
+          flex-direction: column;
+        }
+
+        .background-logo-container {
+          display: none; /* Remove logo do fundo */
+        }
+
+        .start-box {
+          width: 90%;
+          min-height: 400px;
+          padding: 30px 20px;
+        }
+
+        .start-box h1 {
+          font-size: 24px;
+        }
+
+        .start-box h3 {
+          font-size: 16px;
+        }
+
+        .tutorial-content img {
+          width: 90px;
+          height: 90px;
+        }
+
+        .tutorial-navigation button {
+          padding: 12px 15px;
+          font-size: 14px;
+        }
+
+        .menu-container {
+        top: -1px;
+        position: relative;
+        margin: 0 auto;
+        width: 95%;
+        height: 98vh; /* altura total visível */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* empurra o rodapé para o fim */
+        box-sizing: border-box;
+      }
+
+      .menu-container button{
+        margin-top: 50px;
+      
+      }
+
+      .menu-container h2{
+        margin-top: 20px;
+      }
+
+       .menu-container button img {
+            width: 65px; /* Largura da imagem menor */
+            height: 65px; /* Altura da imagem menor */
+        }
+
+        /* Estilo do texto dentro dos botões (span) */
+        .button-container span {
+            font-size: 18px; /* Fonte menor para melhor adaptação */
+        }
+
+        /* Botões com imagem e texto lado a lado */
+        .menu-container .questionarios-button,
+        .menu-container .minigames-button {
+            margin-top: 15px;
+            flex-direction: row;
+            align-items: center;
+            height: 100px;
+        }
+
+        /* Ajuste da imagem no botão "Questionários" */
+        .menu-container .questionarios-button img {
+            margin-right: 15px;
+            margin-bottom: 0;
+            width: 65px;
+            height: 65px;
+        }
+
+        /* Ajuste da imagem no botão "Mini Games" */
+        .menu-container .minigames-button img {
+            margin-bottom: -5px;
+            margin-left: 15px;
+            width: 65px;
+            height: 65px;
+        }
+        
+    }
+
+    /* Responsivo para telas grandes */
+    @media (min-width: 1440px) {
+        .background-logo-container img {
+        width: 150px;
+        height: auto;
+        }
+
+        .background-logo-container span {
+        font-size: 58px;
+
+        }
+
+      .start-box {
+        max-width: 600px;
+        min-height: 500px;
+        padding: 50px 40px;
+      }
+
+      .start-box h1 {
+        font-size: 36px;
+      }
+
+      .start-box h3 {
+        font-size: 20px;
+      }
+
+      .tutorial-content img {
+        width: 140px;
+        height: 140px;
+      }
+
+      .menu-container {
+        top: 5px;
+        width: 500px;
+        height: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 0;
+        position: relative;
+        transform: translateX(-1px); /*GARANTE CENTRALIZAÇÃO IGUAL LOGIN*/
+      }
+
+      .boas-vindas {
+        font-size: 56px;
+      }
+
+            /* Estilo da imagem do logo no cabeçalho */
+        .header-container img {
+            width: 75px; /* Largura da imagem */
+            margin-right: 15px; /* Espaço à direita da imagem */
+        }
+
+        /* Estilo do título dentro do cabeçalho */
+        .header-container h3 {
+            font-size: 24px; /* Tamanho da fonte menor */
+        }
+
+      /* Estilo do título da seção principal */
+        .menu-container h2 {
+            padding-left: 25px; /* Espaço à esquerda */
+            margin-top: 3px; /* Pequena margem superior */
+            margin-bottom: -10px;
+            font-size: 28px;
+        }
+
+      .menu-container button img {
+            width: 65px; /* Largura da imagem menor */
+            height: 65px; /* Altura da imagem menor */
+        }
+
+        /* Estilo do texto dentro dos botões (span) */
+        .button-container span {
+            font-size: 18px; /* Fonte menor para melhor adaptação */
+        }
+
+        /* Botões com imagem e texto lado a lado */
+        .menu-container .questionarios-button,
+        .menu-container .minigames-button {
+            margin-top: 10px;
+            flex-direction: row;
+            align-items: center;
+            height: 100px;
+        }
+
+        /* Ajuste da imagem no botão "Questionários" */
+        .menu-container .questionarios-button img {
+            margin-right: 15px;
+            margin-bottom: 0;
+            width: 65px;
+            height: 65px;
+        }
+
+        /* Ajuste da imagem no botão "Mini Games" */
+        .menu-container .minigames-button img {
+            margin-bottom: -5px;
+            margin-left: 15px;
+            width: 65px;
+            height: 65px;
+        }
+
+        /* Rodapé: centralizar ícones e manter espaçamento consistente com outras telas */
+        .footer {
+            gap: 120px; /* mesmo espaçamento definido fora da media query */
+        }
+
+       .footer img {
+        width: 70px;
+        height: 65px;
+        }
+
+
+        /* Avatar circular com anel gradiente uniforme */
+        .footer a[href="avatar.html"] {
+            width: 63px;   
+            height: 63px;
+        }
+
+
+}
+
+
+    </style>
+</head>
+<body>
+
+      <!-- LOGO E TEXTO NO BACKGROUND -->
+  <div class="background-logo-container">
+    <img src="Imagens/Logo sem Fundo.png" alt="Logo BrainForms Fundo">
+    <span>BrainForms</span>
+  </div>
+
+    <!-- Container principal do menu -->
+    <div class="menu-container">
+        <!-- Cabeçalho com logo e título -->
+        <div class="header-container">
+            <img src="Imagens/Logo sem Fundo.png" alt="Logo BrainForms"> <!-- Logo -->
+            <h3>BrainForms</h3> <!-- Nome do sistema -->
+        </div>
+
+        <!-- Título da seção abaixo do cabeçalho -->
+        <h2>Navegue pelo sistema</h2>
+
+        <!-- Container que agrupa os botões -->
+        <div class="button-container">
+            <!-- Linha com dois botões lado a lado -->
+            <div class="row">
+                <!-- Botão para fórmulas matemáticas -->
+                <button onclick="location.href='calcular-matematica.html'">
+                    <img src="Imagens/mat.png" alt="Matemática"> <!-- Ícone da matemática -->
+                    <span>Fórmulas Matemáticas</span> <!-- Texto do botão -->
+                </button>
+
+                <!-- Botão para fórmulas físicas -->
+                <button onclick="location.href='calcular-fisica.html'">
+                    <img src="Imagens/fisic.png" alt="Física"> <!-- Ícone da física -->
+                    <span>Fórmulas Físicas</span> <!-- Texto do botão -->
+                </button>
+            </div>
+
+            <!-- Botão para questionários, ocupa linha completa -->
+            <button onclick="location.href='menu-questoes.html'" class="questionarios-button">
+                <img src="Imagens/quest.png" alt="Questionário"> <!-- Ícone do questionário -->
+                <span>Questionários</span> <!-- Texto do botão -->
+            </button>
+
+            <!-- Botão para mini games -->
+            <button onclick="location.href='mini-games.html'" class="minigames-button">
+                <span>Mini Games</span> <!-- Texto do botão -->
+                <img src="Imagens/game.png" alt="Mini Games"> <!-- Ícone dos mini games -->
+            </button>
+        </div>
+
+        <!-- Rodapé com três ícones (aumentados e centralizados corretamente) -->
+        <div class="footer">
+            <a href="avatar.html">
+            <img id="menuAvatar" src="Imagens/perfil.png" alt="Perfil"> <!-- Ícone do perfil -->
+            </a>
+
+            <a href="conquistas.html">
+             <img src="Imagens/conquistas.png" alt="Conquistas" style= "padding-left: 7px;"> <!-- Ícone das conquistas -->
+            </a>
+            
+            <a href="menu.html">
+            <img  src="Imagens/menu.png" alt="Menu"> <!-- Ícone do menu -->
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- Overlay de boas-vindas -->
+    <div class="start-overlay" id="start-overlay" style="display: none;">
+        <div class="start-box">
+            <div class="tutorial-content" id="tutorial-content">
+                <!-- Conteúdo dinâmico será inserido aqui -->
+            </div>
+            
+            <div class="progress-dots" id="progress-dots">
+                <!-- Dots serão inseridos dinamicamente -->
+            </div>
+            
+            <div class="tutorial-navigation">
+                <button class="btn-skip" onclick="skipTutorial()">Pular</button>
+                <button class="btn-next" onclick="nextSlide()">Próximo</button>
+            </div>
+        </div>
+    </div>
+
+<script src="js/conquistas-utils.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+      const token = sessionStorage.getItem("token");
+      if (!token) return;
+      
+      // Carrega avatar (primeiro do sessionStorage, depois do backend)
+      const menuAvatar = document.getElementById("menuAvatar");
+      let savedAvatar = sessionStorage.getItem("alunoAvatar");
+      
+      if (savedAvatar && menuAvatar) {
+          menuAvatar.src = savedAvatar;
+      } else if (menuAvatar) {
+          // Se não tiver no sessionStorage, busca do backend
+          try {
+              const avatarResponse = await fetch("http://localhost:8000/api/avatar/show", {
+                  headers: { 
+                      "Authorization": `Bearer ${token}`,
+                      "Accept": "application/json",
+                  },
+              });
+              if (avatarResponse.ok) {
+                  const avatarData = await avatarResponse.json();
+                  if (avatarData.avatar_url) {
+                      menuAvatar.src = avatarData.avatar_url;
+                      sessionStorage.setItem("alunoAvatar", avatarData.avatar_url);
+                  }
+              }
+          } catch (error) {
+              console.warn("Erro ao carregar avatar:", error);
+          }
+      }
+
+      // ✅ Busca dados do aluno sempre no primeiro carregamento da página
+      try {
+          const res = await fetch(`${API_URL}/api/alunos/me`, {
+              headers: { "Authorization": `Bearer ${token}` }
+          });
+
+          if (!res.ok) throw new Error("Falha ao buscar aluno");
+
+          const aluno = await res.json();
+          
+          console.log("Aluno carregado:", aluno);
+          console.log("Primeiro login?", aluno.primeiro_login);
+
+          // ✅ Salva o nome do aluno na session (em todos os logins)
+          sessionStorage.setItem("alunoNome", aluno.name);
+          
+          // Define o nome do usuário no elemento, se existir
+          const nomeUsuarioEl = document.getElementById("nome-usuario");
+          if (nomeUsuarioEl) {
+              nomeUsuarioEl.textContent = aluno.name;
+          }
+
+          // ================================
+          // SISTEMA DE TUTORIAL DE BOAS-VINDAS
+          // ================================
+          const tutorialSlides = [
+              {
+                  icon: 'Imagens/Logo sem Fundo.png',
+                  title: 'Bem-vindo(a) ao BrainForms!',
+                  text: `Olá, <span style="font-weight:bold; color: #650591;">${aluno.name}</span>! Estamos muito felizes em ter você aqui. Prepare-se para explorar o mundo da Matemática e Física de forma divertida e interativa!`
+              },
+              {
+                  icon: 'Imagens/matCalc.png',
+                  title: 'Fórmulas Interativas',
+                  text: 'Explore diversas fórmulas de Matemática e Física! Calcule equações, geometria, conversões de temperatura e muito mais. Cada cálculo conta para suas conquistas!'
+              },
+              {
+                  icon: 'Imagens/quest.png',
+                  title: 'Questionários',
+                  text: 'Teste seus conhecimentos com questionários de Matemática e Física! Resolva exercícios práticos, aprenda com feedback imediato e acompanhe seu progresso.'
+              },
+              {
+                  icon: 'Imagens/Tquizz2.png',
+                  title: 'Time Quizz',
+                  text: 'Desafie-se contra o tempo! Responda questões rapidamente e teste sua agilidade mental. Quanto mais rápido, melhor sua pontuação!'
+              },
+              {
+                  icon: 'Imagens/conquistasTitulo.png',
+                  title: 'Conquistas',
+                  text: 'Complete desafios e desbloqueie conquistas incríveis! Cada ação no BrainForms pode render uma nova conquista. Colete todas elas!'
+              },
+              {
+                  icon: 'Imagens/perfilDefault.png',
+                  title: 'Seu Perfil',
+                  text: 'Personalize seu perfil com avatares únicos! Escolha entre vários avatares ou faça upload da sua própria foto. Mostre sua personalidade!'
+              }
+          ];
+
+          let currentSlide = 0;
+
+          function renderSlide(index) {
+              const slide = tutorialSlides[index];
+              const content = document.getElementById('tutorial-content');
+              
+              content.innerHTML = `
+                  <img src="${slide.icon}" alt="${slide.title}">
+                  <h1>${slide.title}</h1>
+                  <h3>${slide.text}</h3>
+              `;
+
+              // Atualizar dots de progresso
+              const dotsContainer = document.getElementById('progress-dots');
+              dotsContainer.innerHTML = tutorialSlides.map((_, i) => 
+                  `<div class="progress-dot ${i === index ? 'active' : ''}"></div>`
+              ).join('');
+
+              // Atualizar texto do botão
+              const nextBtn = document.querySelector('.btn-next');
+              if (nextBtn) {
+                  nextBtn.textContent = index === tutorialSlides.length - 1 ? 'Começar' : 'Próximo';
+              }
+          }
+
+          window.nextSlide = () => {
+              if (currentSlide < tutorialSlides.length - 1) {
+                  currentSlide++;
+                  renderSlide(currentSlide);
+              } else {
+                  finishTutorial();
+              }
+          };
+
+          window.skipTutorial = () => {
+              finishTutorial();
+          };
+
+          async function finishTutorial() {
+              console.log("🎬 Finalizando tutorial...");
+              document.getElementById("start-overlay").style.display = "none";
+
+              try {
+                  console.log("📡 Marcando boas-vindas no backend...");
+                  const response = await fetch(`${API_URL}/api/alunos/${aluno.id}/marcar-boas-vindas`, {
+                      method: "POST",
+                      headers: {
+                          "Authorization": `Bearer ${token}`,
+                          "Content-Type": "application/json"
+                      }
+                  });
+                  console.log("✅ Boas-vindas marcadas com sucesso:", await response.json());
+              } catch (err) {
+                  console.error("❌ Erro ao marcar boas-vindas:", err);
+              }
+
+              // Marcar que o aluno já viu o tutorial
+              sessionStorage.setItem("alunoCarregado", "true");
+
+              // Mostrar conquistas automaticamente
+              try {
+                  console.log("🏆 Carregando conquistas...");
+                  const conquistas = await window.carregarConquistasAPI?.();
+                  console.log("📋 Conquistas carregadas:", conquistas);
+                  
+                  if (conquistas?.length) {
+                      console.log("🎉 Mostrando conquistas ao usuário...");
+                      window.mostrarNovasConquistasLocal?.(conquistas, true);
+                  } else {
+                      console.log("ℹ️ Nenhuma conquista para mostrar");
+                  }
+              } catch (err) {
+                  console.error("❌ Erro ao carregar conquistas:", err);
+              }
+          }
+
+          // FUNÇÃO GLOBAL DE INÍCIO (mantida para compatibilidade)
+          window.startGame = finishTutorial;
+
+          // ====================================================
+          // VERIFICAR E MOSTRAR TUTORIAL SE FOR PRIMEIRO LOGIN
+          // ====================================================
+          if (aluno.primeiro_login) {
+              console.log("🎓 É o primeiro login! Mostrando tutorial...");
+              
+              const overlayEl = document.getElementById("start-overlay");
+              if (!overlayEl) {
+                  console.error("❌ Elemento start-overlay não encontrado!");
+                  return;
+              }
+              
+              overlayEl.style.display = "flex";
+              console.log("✅ Overlay exibido");
+              
+              // Renderizar primeiro slide
+              renderSlide(0);
+              console.log("✅ Primeiro slide renderizado");
+          } else {
+              console.log("✅ Não é primeiro login. Tutorial já foi visto.");
+              // Marca que o aluno foi carregado nesta sessão
+              sessionStorage.setItem("alunoCarregado", "true");
+          }
+
+      } catch (err) {
+          console.error("Erro ao carregar aluno:", err);
+      }
+  });
+
+  // ================================
+  // Função para trocar avatar
+  // ================================
+  function trocarAvatar(src) {
+      document.getElementById('mainAvatar').src = src;
+      try {
+          sessionStorage.setItem('alunoAvatar', src);
+      } catch (e) {
+          console.warn('Não foi possível salvar o avatar na sessionStorage:', e);
+      }
+  }
+
+  // Upload de imagem personalizada
+  document.getElementById("uploadInput").addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              const dataUrl = e.target.result;
+              document.getElementById("mainAvatar").src = dataUrl;
+              try {
+                  sessionStorage.setItem('alunoAvatar', dataUrl);
+              } catch (err) {
+                  console.warn('Não foi possível salvar avatar na sessionStorage:', err);
+              }
+          }
+          reader.readAsDataURL(file);
+      }
+  });
+</script>
+
+
+
+</body>
+</html>

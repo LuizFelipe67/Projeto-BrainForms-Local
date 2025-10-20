@@ -30,8 +30,7 @@ class AuthController extends Controller
 
         // 3. Criar token com expiração de 15 minutos
         $token = $aluno->createToken('api-token', [], now()->addMinutes(15))->plainTextToken;
-        //salvar o nome do aluno logado
-        session(['alunoNome' => $aluno->name]);
+       
 
         // 4. Retornar JSON com token e dados do aluno
         return response()->json([

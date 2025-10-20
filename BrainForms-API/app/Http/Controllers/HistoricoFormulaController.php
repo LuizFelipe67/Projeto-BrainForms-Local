@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\HistoricoFormula;
 use App\Models\Formula;
+use App\Models\Conquista;
 use Illuminate\Support\Facades\DB;
 
 class HistoricoFormulaController extends Controller
@@ -37,15 +38,40 @@ class HistoricoFormulaController extends Controller
             $novas = [];
 
             if ($formula) {
+                // Conquista 9: Mestre Geométrico (fórmulas de geometria: IDs 2, 3, 4, 5)
+                $formulasGeometria = [2, 3, 4, 5]; // Área do Círculo, Volume da Esfera, Área do Triângulo, Volume do Cilindro
+                if (in_array($data['formula_id'], $formulasGeometria)) {
+                    $conquistaId = 9;
+                    $jaTem = $aluno->conquistas()->where('conquistas.id', $conquistaId)->exists();
+                    if (!$jaTem) {
+                        $aluno->conquistas()->attach($conquistaId);
+                        $novas[] = $conquistaId;
+                    }
+                }
+                
+                // Conquista 10: Mestre da Conversão (fórmula de conversão de temperatura: ID 10)
+                if ($data['formula_id'] == 10) {
+                    $conquistaId = 10;
+                    $jaTem = $aluno->conquistas()->where('conquistas.id', $conquistaId)->exists();
+                    if (!$jaTem) {
+                        $aluno->conquistas()->attach($conquistaId);
+                        $novas[] = $conquistaId;
+                    }
+                }
+                
+                // Conquista 2: Matemática Forms (qualquer fórmula de matemática)
                 if ($formula->tipo === 'matematica') {
                     $conquistaId = 2;
-                } elseif ($formula->tipo === 'fisica') {
-                    $conquistaId = 5; // exemplo
-                } else {
-                    $conquistaId = null;
+                    $jaTem = $aluno->conquistas()->where('conquistas.id', $conquistaId)->exists();
+                    if (!$jaTem) {
+                        $aluno->conquistas()->attach($conquistaId);
+                        $novas[] = $conquistaId;
+                    }
                 }
-
-                if ($conquistaId) {
+                
+                // Conquista 5: Físico Forms (qualquer fórmula de física)
+                if ($formula->tipo === 'fisica') {
+                    $conquistaId = 5;
                     $jaTem = $aluno->conquistas()->where('conquistas.id', $conquistaId)->exists();
                     if (!$jaTem) {
                         $aluno->conquistas()->attach($conquistaId);

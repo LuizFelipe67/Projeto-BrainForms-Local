@@ -87,35 +87,70 @@
             color: white;
         }
 
+        /* Seção abaixo do cabeçalho */
+        .header-section {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0px 10px;
+            margin-top: -5px;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
 
-        /* Área de conteúdo principal */
-        .content {
-            padding: 40px 20px; /* Espaçamento interno */
-            display: flex; /* Flexbox para estruturar os botões */
-            flex-direction: column; /* Itens em coluna */
-            align-items: center; /* Centraliza horizontalmente */
-            gap: 15px; /* Espaçamento vertical entre botões */
+        /* botão de voltar: estilo único e um pouco maior */
+        .back-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 14px;
+            padding: 4px 6px;
+            color: black;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .back-btn span {
+            font-size: 14px;
+            background-color: #e2e2e2;
+            padding: 12px 10px;
+            border-radius: 16px;
+            box-shadow: #615f5f 0px 4px 4px 0px;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
         }
 
         .questionario-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px; /* Espaço entre texto e imagem */
-            margin-top: -40px;
-            margin-bottom: 8px;
-            width: 100%;
+            justify-content: flex-start;
+            gap: 10px;
+            flex-grow: 0;
         }
 
         .questionario-header h2 {
             color: #5E097E;
             margin: 0;
-            font-size: 24px;
+            font-size: 20px;
+            white-space: nowrap;
         }
 
         .questionario-header img {
-            width: 60px; /* Ajuste conforme necessário */
+            width: 52px;
             height: auto;
+        }
+
+
+        /* Área de conteúdo principal */
+        .content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
         }
 
 
@@ -140,24 +175,20 @@
             box-shadow: 0 4px 12px rgba(48, 10, 62, 0.6); /* Sombra mais forte */
         }
 
-            /* Rodapé fixo na parte inferior do container */
+        /* Rodapé */
         .footer {
-            background-color: #300A3E; /* Cor do rodapé */
-            display: flex; /* Flexbox */
-            justify-content: center; /* Centraliza os ícones */
-            align-items: center; /* Centraliza verticalmente */
-            position: absolute; /* Posicionamento absoluto dentro do container */
-            bottom: 0; /* Fixa na parte inferior */
-            width: 100%; /* Ocupa toda a largura */
-            height: 80px; /* Altura aumentada do rodapé */
-            gap: 30px; /* Espaço entre os ícones */
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: auto;
+            display: flex;
+            height: 80px;
         }
 
         /* Estilo das imagens do rodapé */
         .footer img {
-            width: 65px; /* Largura aumentada */
-            height: 60px; /* Altura aumentada */
-            padding: 25PX; /* Remove padding para não cortar imagens */
+            width: 65px;
+            height: 60px;
+            padding: 25px;
         }
 
 
@@ -184,15 +215,6 @@
         justify-content: space-between; /* empurra o rodapé para o fim */
         box-sizing: border-box;
       }
-
-          .questionario-header {
-            margin-top: -640px; /* reduz distância entre o cabeçalho e o h2+img */
-            gap: 8px; /* ajusta espaçamento entre h2 e imagem */
-            margin-bottom: 20px;
-        }
-
-        
-      
 
     }
 
@@ -235,15 +257,12 @@
             font-size: 24px; /* Tamanho da fonte menor */
         }
 
-
         .questionario-header h2 {
-            margin-bottom: -10px;
-            font-size: 28px;
+            font-size: 22px;
         }
 
         .questionario-header img {
-           margin-bottom: -10px;
-            width: 85px; /* Ajuste conforme necessário */
+            width: 60px;
             height: auto;
         }
 
@@ -256,10 +275,11 @@
         }
 
         .footer img {
-        width: 70px; /* Largura aumentada */
-        height: 65px; /* Altura aumentada */
-        padding: 45px; /* Remove padding para não cortar imagens */
-    }
+            margin-left: -25px;
+            width: 70px;
+            height: 65px;
+            padding: 55px;
+        }
 
        
 
@@ -286,12 +306,20 @@
             <h3><a href="menu-questoes.html">BrainForms</a></h3>
         </div>
 
-        <!-- Área onde são listadas as questões para escolher -->
-        <div class="content">
+        <!-- Linha com botão voltar e título -->
+        <div class="header-section">
+            <a href="menu-questoes.html" class="back-btn">
+                <span>&#10094; Voltar</span>
+            </a>
+
             <div class="questionario-header">
                 <h2>Questões de Matemática</h2>
                 <img src="Imagens/qMat.png" alt="Ícone Questionário">
             </div>
+        </div>
+
+        <!-- Área onde são listadas as questões para escolher -->
+        <div class="content">
 
             <button onclick="location.href='qEquacoes.html'">Equações</button>
             <button onclick="location.href='qGeometria.html'">Geometria</button>
@@ -300,13 +328,11 @@
 
         </div>
 
-         <!-- Rodapé com ícones -->
+         <!-- Rodapé -->
         <div class="footer">
-            <a href="menu.html">
-            <img src="Imagens/inicio.png" alt="inicio">
+            <a href="inicio.html">
+                <img src="Imagens/inicio.png" alt="Início">
             </a>
-            <img src="Imagens/conquistas.png" alt="conquista">
-            <img src="Imagens/menu.png" alt="menu">
         </div>
 
     </div>

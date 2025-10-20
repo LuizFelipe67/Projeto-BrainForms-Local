@@ -1,7 +1,7 @@
 window.API_URL = "http://localhost:8000";
  
  async function enviarHistorico(formulaId, valoresObj, resultadoObj) {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) {
       console.warn('Sem token, não foi possível enviar histórico');
       return null;

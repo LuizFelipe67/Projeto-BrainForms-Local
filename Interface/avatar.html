@@ -209,15 +209,17 @@ h2 {
     box-sizing: border-box;
     border: 3px solid transparent;
     box-shadow: #615f5f 1px 5px 5px 1px;
- 
+    cursor: pointer;
+    transition: transform 0.3s ease;
 
     background: 
       linear-gradient(white, white) padding-box, 
       linear-gradient(180deg, #00f7ff 0%, #6a00ff 35%, #f82dff 100%) border-box;
 
     background-origin: border-box;
-   
 }
+
+
 
 
 .user-name {
@@ -229,14 +231,24 @@ h2 {
     margin-bottom: 50px;
 }
 
-h4 {
-    align-self: flex-start;
+/* Container para alinhar h4 e botão info lado a lado */
+.header-avatar-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     margin-top: -25px;
-    color: black;
     margin-bottom: 10px;
-    font-size: 14px;
-    
 }
+
+h4 {
+    margin-top: 30px;
+    color: black;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+
 
 /* Painel de fundo */
 .avatar-panel {
@@ -273,6 +285,98 @@ h4 {
     transform: scale(1.08);
 }
 
+@media (max-width: 480px) {
+    body {
+        margin: 0;
+        bottom: 0;
+        padding-bottom: 0;
+        flex-direction: column;
+    }
+
+    .background-logo-container {
+        display: none;
+    }
+
+    .menu-container {
+        top: -1px;
+        position: relative;
+        margin: 0 auto;
+        width: 95%;
+        height: 98vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+
+    .avatar-options {
+        overflow-y: auto;
+        max-height: 50vh;
+        padding: 10px;
+    }
+
+    .avatar-options img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .user-name {
+        font-size: 14px;
+    }
+
+    .main-avatar {
+        width: 90px;
+        height: 90px;
+    }
+
+    .menu-container button {
+        margin-top: 50px;
+    }
+
+    .content h2 {
+        margin-top: 30px;
+        margin-bottom: 40px;
+    }
+
+    .content .title-box img {
+        margin-top: -15px;
+        width: 65px;
+    }
+
+    .content a {
+        margin-top: 5px;
+        height: 60px;
+    }
+
+    /* Footer - botão início à esquerda, ícone menor e texto visível, footer abaixado */
+    .footer {
+        position: relative;
+        margin-top: -20px;  /* abaixado mais */
+        padding-bottom: 10px; /* menos espaço inferior */
+        display: flex;
+        justify-content: flex-start; /* botão à esquerda */
+        align-items: flex-end; /* alinha ícone e texto */
+    }
+
+    .footer a {
+        display: flex;
+        flex-direction: column; /* ícone em cima, texto embaixo */
+        align-items: center;
+        text-decoration: none;
+        color: #fff; /* cor do texto */
+        font-size: 12px; /* tamanho do texto */
+        margin-right: 15px; /* espaçamento entre botões */
+    }
+
+    .footer a img {
+        width: 50px;   /* tamanho do ícone */
+        height: 50px;  /* tamanho do ícone */
+        display: block;
+        margin-bottom: 5px; /* espaço entre ícone e texto */
+    }
+}
 
    @media (min-width: 1440px) {
        .background-logo-container img {
@@ -348,6 +452,8 @@ h4 {
         font-size: 16px;
       }
 
+ 
+
       .avatar-options {
           gap: 35px;
       }
@@ -367,10 +473,6 @@ h4 {
 
 }
 
-   
-
-
-
 
 </style>
 </head>
@@ -389,7 +491,7 @@ h4 {
     <div class="header-container">
       <div class="header-left">
         <img src="Imagens/Logo sem Fundo.png" alt="Logo BrainForms">
-       <h3><a href="menu.html">BrainForms</a></h3>
+       <h3><a href="inicio.html">BrainForms</a></h3>
       </div>
     </div>
 
@@ -416,7 +518,21 @@ h4 {
       <!-- Nome do usuário -->
       <p id="nome-usuario-avatar" class="user-name"></p>
 
-      <h4>Escoha o avatar de sua preferência:</h4>
+      <!-- Container com h4 e botão info -->
+      <div class="header-avatar-section">
+        <h4>Escolha o avatar de sua preferência:</h4>
+        
+        <div class="direita">
+          <button class="info-btn"
+            data-info="Aqui você pode escolher um avatar para o 
+            seu perfil. Clique em qualquer imagem para 
+            selecioná-la ou faça upload de sua própria foto usando o botão 'Insira sua foto' no topo."
+            onclick="showInfo(this)">
+            <img src="Imagens/info.png" alt="Informação">
+          </button>
+        </div>
+      </div>
+
       <!-- Painel com avatares -->
       <div class="avatar-panel">
         <div class="avatar-options">
@@ -440,58 +556,200 @@ h4 {
       </div>
     </div>
 
+    
+
     <!-- Rodapé -->
     <div class="footer">
-      <a href="menu.html">
+      <a href="inicio.html">
         <img src="Imagens/inicio.png" alt="Início">
       </a>
     </div>
   </div>
 
+<script src="js/info-button.js"></script>
+<script src="js/conquistas-utils.js"></script>
 <script>
-  // Troca avatar principal
-  function trocarAvatar(src) {
-    document.getElementById('mainAvatar').src = src;
-    try {
-      sessionStorage.setItem('alunoAvatar', src);
-    } catch (e) {
-      console.warn('Não foi possível salvar o avatar no sessionStorage:', e);
-    }
+// Busca token do sessionStorage
+const token = sessionStorage.getItem("token");
+
+// === TROCAR AVATAR DE GALERIA ===
+async function trocarAvatar(src) {
+  if (!token) {
+    alert("Você precisa estar logado para alterar o avatar.");
+    window.location.href = "login.html";
+    return;
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-      // Puxa o nome do sessionStorage (já carregado no login)
-      const nome = sessionStorage.getItem("alunoNome") || "user";
-      document.getElementById("nome-usuario-avatar").textContent = nome;
+  document.getElementById('mainAvatar').src = src;
+  
+  // Salva avatar da galeria no banco de dados via API
+  try {
+    const response = await fetch("http://localhost:8000/api/avatar/update", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify({ avatar_url: src })
+    });
 
-      // Carrega avatar salvo no sessionStorage (temporário)
-      const savedAvatar = sessionStorage.getItem('alunoAvatar');
-      if (savedAvatar) {
-        document.getElementById('mainAvatar').src = savedAvatar;
-      }
-  });
-
-  // Upload de imagem personalizada
-  document.getElementById("uploadInput").addEventListener("change", function(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const dataUrl = e.target.result;
-        document.getElementById("mainAvatar").src = dataUrl;
-        try {
-          sessionStorage.setItem('alunoAvatar', dataUrl);
-        } catch (err) {
-          console.warn('Não foi possível salvar o avatar no sessionStorage:', err);
-        }
-      }
-      reader.readAsDataURL(file);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ message: "Erro ao conectar com o servidor" }));
+      throw new Error(errorData.message || `Erro ${response.status}`);
     }
-  });
+
+    const data = await response.json();
+    console.log("✅ Avatar da galeria salvo no banco:", data);
+    
+    // Salva no sessionStorage para usar em outras páginas
+    sessionStorage.setItem("alunoAvatar", src);
+    
+    // Verifica e mostra conquistas desbloqueadas
+    const conquistas = await carregarConquistasAPI();
+    if (conquistas.length > 0) {
+      mostrarNovasConquistasLocal(conquistas, false, [7]);
+    }
+    
+  } catch (err) {
+    console.error("❌ Erro ao salvar avatar:", err);
+    alert(`Erro ao salvar avatar: ${err.message}\n\nVerifique se o servidor Laravel está rodando em http://localhost:8000`);
+  }
+}
+
+// === UPLOAD DE IMAGEM PERSONALIZADA ===
+document.getElementById("uploadInput").addEventListener("change", async function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  if (!token) {
+    alert("Você precisa estar logado para fazer upload de avatar.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  // Valida tamanho do arquivo (max 5MB)
+  if (file.size > 5120 * 1024) {
+    alert("A imagem deve ter no máximo 5MB");
+    return;
+  }
+
+  // Valida tipo do arquivo
+  if (!['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'].includes(file.type)) {
+    alert("Por favor, selecione uma imagem JPG, PNG, GIF ou WebP");
+    return;
+  }
+
+  // Valida dimensões da imagem (max 4096x4096)
+  const img = new Image();
+  const reader = new FileReader();
+  
+  reader.onload = function(e) {
+    img.src = e.target.result;
+    img.onload = async function() {
+      if (this.width > 4096 || this.height > 4096) {
+        alert(`A imagem deve ter no máximo 4096x4096 pixels.\nSua imagem: ${this.width}x${this.height} pixels`);
+        return;
+      }
+      
+      // Se passou nas validações, faz o upload
+      await uploadAvatar(file);
+    };
+  };
+  
+  reader.readAsDataURL(file);
+});
+
+// Função auxiliar para fazer o upload
+async function uploadAvatar(file) {
+  const formData = new FormData();
+  formData.append("avatar", file);
+
+  try {
+    const response = await fetch("http://localhost:8000/api/avatar/update", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/json",
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ message: "Erro ao conectar com o servidor" }));
+      throw new Error(errorData.message || `Erro ${response.status}`);
+    }
+
+    const data = await response.json();
+    document.getElementById("mainAvatar").src = data.avatar_url;
+    
+    // Salva no sessionStorage para usar em outras páginas
+    sessionStorage.setItem("alunoAvatar", data.avatar_url);
+    
+    // Verifica e mostra conquistas desbloqueadas
+    const conquistas = await carregarConquistasAPI();
+    if (conquistas.length > 0) {
+      mostrarNovasConquistasLocal(conquistas, false, [7]);
+    }
+    
+    alert("✅ Avatar personalizado salvo com sucesso!");
+    console.log("✅ Avatar personalizado salvo:", data);
+    
+  } catch (error) {
+    console.error("❌ Erro no upload:", error);
+    alert(`Erro ao fazer upload do avatar: ${error.message}\n\nVerifique se o servidor Laravel está rodando em http://localhost:8000`);
+  }
+}
+
+// === CARREGAR NOME E AVATAR AO ENTRAR NA PÁGINA ===
+document.addEventListener("DOMContentLoaded", async () => {
+  // Carrega o nome do usuário do sessionStorage
+  const nome = sessionStorage.getItem("alunoNome") || "Usuário";
+  document.getElementById("nome-usuario-avatar").textContent = nome;
+
+  console.log("🔑 Token encontrado:", token ? "Sim" : "Não");
+  console.log("👤 Nome do usuário:", nome);
+
+  // Se não houver token, avisa mas não redireciona imediatamente
+  if (!token) {
+    console.warn("⚠️ Token não encontrado no sessionStorage");
+    // Usuário verá o alerta ao tentar trocar avatar
+    return;
+  }
+
+  // Busca avatar do banco de dados
+  try {
+    const response = await fetch("http://localhost:8000/api/avatar/show", {
+      headers: { 
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data.avatar_url) {
+        document.getElementById("mainAvatar").src = data.avatar_url;
+        // Salva no sessionStorage para usar em outras páginas
+        sessionStorage.setItem("alunoAvatar", data.avatar_url);
+        console.log("✅ Avatar carregado do banco:", data.avatar_url);
+      } else {
+        console.log("ℹ️ Nenhum avatar salvo, usando padrão");
+      }
+    } else if (response.status === 401) {
+      console.warn("⚠️ Token inválido ou expirado");
+      alert("Sua sessão expirou. Faça login novamente.");
+      window.location.href = "login.html";
+    } else {
+      console.warn("⚠️ Não foi possível carregar o avatar do servidor");
+    }
+  } catch (error) {
+    console.error("❌ Erro ao carregar avatar:", error);
+    console.warn("⚠️ Servidor não está respondendo. Verifique se o Laravel está rodando.");
+    // Mantém avatar padrão se houver erro de conexão
+  }
+});
 </script>
-
-
-
 
 </body>
 </html>

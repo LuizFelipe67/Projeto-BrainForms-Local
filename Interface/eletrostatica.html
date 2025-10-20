@@ -221,6 +221,24 @@
   margin-right: -3%;
 }
 
+/* Container para h6 e botão info */
+.input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.calculo h6 {
+  text-align: left;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: -30px;
+}
+
 
     button[type="submit"] {
       width: 100%;
@@ -375,6 +393,19 @@
       <div class="calculo">
         <h2>Cálculo</h2>
         <form id="eletroForm">
+          <!-- Container com h6 e botão info -->
+          <div class="input-header">
+            <h6>Insira os valores para o cálculo</h6>
+            
+            <div class="direita">
+              <button type="button" class="info-btn"
+                data-info="Para calcular a força elétrica usando a Lei de Coulomb, insira os valores das cargas q₁ e q₂ (em Coulombs) e a distância entre elas (em metros). A fórmula é: F = k · |q₁ · q₂| / d², onde k = 9×10⁹ N·m²/C²"
+                onclick="showInfo(this)">
+                <img src="Imagens/info.png" alt="Informação">
+              </button>
+            </div>
+          </div>
+
           <input type="text" id="q1" placeholder="Valor de q₁ (C)" />
           <input type="text" id="q2" placeholder="Valor de q₂ (C)" />
           <input type="text" id="distancia" placeholder="Distância entre as cargas (m)" />
@@ -390,7 +421,7 @@
 
  <!-- Rodapé -->
     <div class="footer">
-      <a href="menu.html">
+      <a href="inicio.html">
         <img src="Imagens/inicio.png" alt="Início">
       </a>
     </div>
@@ -399,6 +430,7 @@
   
     <script src="js/conquistas-utils.js"></script>
     <script src="js/historico-formulas.js"></script>
+    <script src="js/info-button.js"></script>
 
   <script>
     document.getElementById('eletroForm').addEventListener('submit', async function(e) {

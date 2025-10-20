@@ -426,7 +426,7 @@
 
   // Verifica se o usuário está logado (token existe)
   function verificarLogin() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) {
       mostrarErro('Faça login primeiro para responder o questionário!');
       window.location.href = 'index.html'; // Redireciona para login
@@ -544,7 +544,7 @@
 
   // Função para salvar resposta no backend
   async function salvarResposta(secao, numQuestao, selectedAnswer, questionText) {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) {
       mostrarErro('Token de autenticação não encontrado. Faça login novamente.');
       return false;
@@ -615,12 +615,12 @@
 
     // Mensagem de sucesso personalizada
     if (current < questions.length - 1) {
-      alert('✅ Resposta salva! Avançando para a próxima...');
+      // Resposta salva, avançando para a próxima
       current++;
       renderQuestion();
     } else {
       // Para a última: salva e finaliza
-      alert('✅ Questionário salvo com sucesso! Finalizando...');
+      // Questionário salvo com sucesso
       
       const box = document.getElementById('question-box');
       const feedback = document.getElementById('feedback');

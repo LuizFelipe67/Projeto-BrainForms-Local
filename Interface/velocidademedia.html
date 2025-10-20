@@ -222,6 +222,24 @@
   margin-right: -3%;
 }
 
+/* Container para h6 e botão info */
+.input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.calculo h6 {
+  text-align: left;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: -30px;
+}
+
     button[type="submit"] {
       width: 100%;
       padding: 12px;
@@ -404,6 +422,19 @@
       <div class="calculo">
         <h2>Cálculo</h2>
         <form id="velocidadeForm">
+          <!-- Container com h6 e botão info -->
+          <div class="input-header">
+            <h6>Insira os valores para o cálculo</h6>
+            
+            <div class="direita">
+              <button type="button" class="info-btn"
+                data-info="Para calcular a velocidade média, insira a distância percorrida (em km) e o tempo gasto (em horas). A fórmula utilizada é: Vm = Δs / Δt"
+                onclick="showInfo(this)">
+                <img src="Imagens/info.png" alt="Informação">
+              </button>
+            </div>
+          </div>
+
           <input type="text" id="distancia" placeholder="Insira a distância (km)" />
           <input type="text" id="tempo" placeholder="Insira o tempo (h)" />
           <button type="submit">Calcular velocidade média</button>
@@ -420,7 +451,7 @@
 
  <!-- Rodapé -->
     <div class="footer">
-      <a href="menu.html">
+      <a href="inicio.html">
         <img src="Imagens/inicio.png" alt="Início">
       </a>
     </div>
@@ -429,6 +460,7 @@
   
     <script src="js/conquistas-utils.js"></script>
     <script src="js/historico-formulas.js"></script>
+    <script src="js/info-button.js"></script>
 
   <script>
     document.getElementById('velocidadeForm').addEventListener('submit', async function(e) {

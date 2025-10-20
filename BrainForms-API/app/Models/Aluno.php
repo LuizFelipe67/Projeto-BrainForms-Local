@@ -16,6 +16,8 @@ class Aluno extends Model
         'name',
         'email',
         'password',
+        'avatar',
+        'primeiro_login'
     ];
 
     protected $hidden = [

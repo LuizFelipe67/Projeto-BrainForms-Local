@@ -676,21 +676,21 @@ button#cadastrar:hover {
     .then(data => {
     console.log("Resposta da API:", data);
     if (data.status === 200) {
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("alunoNome", data.user.name);
+    sessionStorage.setItem("token", data.token);
+    sessionStorage.setItem("alunoNome", data.user.name);
     // salvar id do aluno para chave por usuário
     if (data.user && data.user.id) {
-      localStorage.setItem('alunoId', String(data.user.id));
+      sessionStorage.setItem('alunoId', String(data.user.id));
       // se o usuário ainda não viu a boas-vindas, marcar para mostrar apenas desta vez
       const seenKey = `boas_vindas_vista_${data.user.id}`;
-      if (!localStorage.getItem(seenKey)) {
-        localStorage.setItem('show_boas_vindas', 'true');
+      if (!sessionStorage.getItem(seenKey)) {
+        sessionStorage.setItem('show_boas_vindas', 'true');
       }
     }
   // marcar que este é um login novo para mostrar a boas-vindas uma vez
     
     alert(`✅ Login realizado com sucesso!\n\nSeja muito bem-vindo(a) ${data.user.name} ao BrainForms!`);
-    window.location.href = "menu.html";
+    window.location.href = "inicio.html";
       } else {
         alert("❌ " + (data.message || "Credenciais inválidas."));
     }

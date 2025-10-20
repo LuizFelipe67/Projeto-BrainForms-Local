@@ -209,7 +209,7 @@
   position: relative;
   text-align: center;
   color: #5E097E;
-  margin-top: -10px;
+  margin-top: 10px;
   font-size: 18px;
 }
 
@@ -232,6 +232,26 @@
   right: 0;
   margin-right: -3%;
 }
+
+/* Container para h6 e botão info */
+.input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.calculo h6 {
+  text-align: left;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: -30px;
+}
+
+
 
 
     button[type="submit"] {
@@ -357,6 +377,15 @@
         font-size: 22px;
       }
 
+      .calculo h6 {
+        font-size: 16px;
+      }
+
+      .info-btn img {
+        width: 28px;
+        height: 28px;
+      }
+
       .calculo input[type="text"] {
         font-size: 18px;
       }
@@ -410,6 +439,20 @@
 
       <div class="calculo">
         <h2>Cálculo</h2>
+
+        <!-- Container com h6 e botão info -->
+        <div class="input-header">
+          <h6>Insira os valores da sua equação</h6>
+          
+          <div class="direita">
+            <button class="info-btn"
+              data-info="Aqui você pode calcular equações do 2° grau usando a fórmula de Bhaskara. Insira os valores de a, b e c para obter as raízes da equação."
+              onclick="showInfo(this)">
+              <img src="Imagens/info.png" alt="Informação">
+            </button>
+          </div>
+        </div>
+
         <form id="equacaoForm">
           <input type="text" id="a" placeholder="Insira o valor de a" required />
           <input type="text" id="b" placeholder="Insira o valor de b" required />
@@ -428,15 +471,15 @@
 
  <!-- Rodapé -->
     <div class="footer">
-      <a href="menu.html">
+      <a href="inicio.html">
         <img src="Imagens/inicio.png" alt="Início">
       </a>
     </div>
   </div>
 
-  
-    <script src="js/conquistas-utils.js"></script>
-    <script src="js/historico-formulas.js"></script>
+  <script src="js/info-button.js"></script>
+  <script src="js/conquistas-utils.js"></script>
+  <script src="js/historico-formulas.js"></script>
 
   <script>
     
