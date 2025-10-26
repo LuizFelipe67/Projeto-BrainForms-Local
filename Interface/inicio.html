@@ -7,239 +7,296 @@
     
     <style>
         
-        /* Estiliza o corpo da página */
+        /* ================================================
+           ESTILOS BASE PARA DESKTOP 
+           ================================================ */
+
+/* Estiliza o corpo da página */
 body {
-    font-family: 'Roboto', sans-serif; /* Fonte da página */
-    background-color: #775085; /* Cor de fundo roxa */
-    display: flex; /* Usando flexbox para centralizar conteúdo */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    min-height: 100vh; /* Altura da tela inteira */
-    margin: 0; /* Remove margens padrão */
-    padding-bottom: 200px; /* Espaço EXTRA abaixo da box */
-    overflow-y: auto; /* Permite rolar verticalmente */
-}
-
- /* LOGO E TEXTO NO CANTO SUPERIOR ESQUERDO DO FUNDO */
-    .background-logo-container {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      z-index: 0;
-    }
-
-    .background-logo-container img {
-      width: 100px;
-      height: auto;
-    }
-
-    .background-logo-container span {
-      color: white;
-      font-size: 48px;
-      font-weight: bold;
-      font-family: 'Roboto', sans-serif;
-    }
-
-/* Container principal do menu */
-.menu-container {
-    background-color: #fff; /* Fundo branco */
-    border-radius: 12px; /* Cantos arredondados */
-    box-shadow: 0 0 20px rgba(34, 2, 45, 0.6); /* Sombra mais visível */
-    text-align: center; /* Centraliza texto */
-    top: 120px;
-    width: 400px;
-    height: 600px;
-    display: flex; /* Flexbox para organização */
-    flex-direction: column; /* Itens em coluna */
-    overflow: hidden; /* Esconde overflow */
-    position: relative; /* Necessário para posicionar o rodapé */
-}
-
-
-/* Cabeçalho dentro do container do menu */
-.header-container {
-    display: flex; /* Flexbox para alinhar texto e imagem na horizontal */
-    align-items: center; /* Alinha verticalmente ao centro */
-    background: linear-gradient(to bottom, #000000 0%, #3A024E 80%); /* Gradiente invertido */
-    padding: 15px 20px; /* Espaçamento interno */
-    border-radius: 12px 12px 0 0; /* Cantos arredondados só no topo */
-    color: white; /* Cor do texto */
-    width: 100%; /* Largura total do container */
-    margin-bottom: 30px; /* Espaço abaixo do cabeçalho */
-}
-
-/* Estilo da imagem do logo no cabeçalho */
-.header-container img {
-    width: 65px; /* Largura da imagem */
-    margin-right: 10px; /* Espaço à direita da imagem */
-}
-
-/* Estilo do título dentro do cabeçalho */
-.header-container h3 {
-    margin: 0; /* Remove margem padrão */
-    font-size: 20px; /* Tamanho da fonte menor */
-}
-
-/* Estilo do título da seção principal */
-.menu-container h2 {
-    text-align: left; /* Alinha o texto à esquerda */
-    padding-left: 20px; /* Espaço à esquerda */
-    margin-top: 2px; /* Pequena margem superior */
-    color: #5E097E; /* Cor roxa */
-    margin-bottom: -30px;
-}
-
-/* Container que agrupa os botões */
-.button-container {
-    flex-grow: 1;       /* ocupa todo espaço restante */
-    overflow-y: auto;   /* rolagem vertical se necessário */
-    display: flex; /* Flexbox */
-    flex-direction: column; /* Itens em coluna */
-    gap: 10px; /* Espaço entre os botões */
-    align-items: center; /* Centraliza horizontalmente */
-    margin-top: 60px; /* Espaço acima */
-    padding: 0 20px; /* Espaçamento lateral */
-    overflow: visible;
-
-}
-
-/* Linha que contém dois botões lado a lado */
-.button-container .row {
-    display: flex; /* Flexbox */
-    gap: 20px; /* Espaço entre os botões */
-    justify-content: center; /* Centraliza os botões */
-    width: 100%; /* Ocupa toda largura */
-}
-
-/* Estilo dos botões dentro do container do menu */
-.menu-container button {
-    background-color: #F2F3FD; /* Fundo claro */
-    color: #5E097E; /* Texto roxo */
-    border: 2px solid #440459; /* Borda mais grossa */
-    border-radius: 16px; /* Cantos mais arredondados */
-    padding: 10px; /* Espaçamento interno reduzido */
-    font-size: 16px; /* Tamanho da fonte menor */
-    font-weight: bold; /* Negrito */
-    cursor: pointer; /* Cursor tipo mãozinha */
-    width: 100%; /* Largura total do botão */
-    height: auto;
-    max-height: 160px;
-    min-height: 80px;        /* altura mínima */
-    display: flex; /* Flexbox para alinhar imagem e texto */
-    flex-direction: column; /* Organiza itens em coluna */
-    align-items: center; /* Centraliza horizontalmente */
-    justify-content: center; /* Centraliza verticalmente */
-    box-shadow: 10px 0 14px rgba(34, 2, 45, 0.5); /* Sombra para a direita */
-    flex-shrink: 1;          /* permite encolher */
-    overflow: hidden;
-    white-space: normal;     /* permite quebra de linha */
-    text-overflow: ellipsis;
-}
-
-/* Efeito visual ao passar o mouse sobre os botões */
-.menu-container button:hover {
-    box-shadow: 12px 0 18px rgba(48, 10, 62, 0.7); /* Sombra mais intensa à direita */
-    background-color: #D8D2F0;
-    transform: scale(1.02);
-}
-
-/* Estilo para a imagem dentro dos botões */
-.menu-container button img {
-    width: 50px; /* Largura da imagem menor */
-    height: 50px; /* Altura da imagem menor */
-    margin-bottom: 15px; /* Espaço abaixo da imagem */
-    flex-shrink: 0;      /* imagem não encolhe */
-}
-
-/* Estilo do texto dentro dos botões (span) */
-.button-container span {
-    font-size: 16px; /* Fonte menor para melhor adaptação */
-    word-break: break-word; /* Quebra o texto grande */
-}
-
-/* Botões com imagem e texto lado a lado */
-.menu-container .questionarios-button,
-.menu-container .minigames-button {
-    flex-direction: row;
-    align-items: center;
-    height: auto;
-    max-height: 160px;
-}
-
-/* Ajuste da imagem no botão "Questionários" */
-.menu-container .questionarios-button img {
-    margin-right: 15px;
-    margin-bottom: 0;
-    width: 50px;
-    height: 50px;
-}
-
-/* Ajuste da imagem no botão "Mini Games" */
-.menu-container .minigames-button img {
-    margin-bottom: -5px;
-    margin-left: 15px;
-    width: 50px;
-    height: 50px;
-}
-
-/* Rodapé fixo na parte inferior do container */
-.footer {
-    background-color: #300A3E; /* Cor do rodapé */
-    display: flex; /* Flexbox */
-    justify-content: center; /* Centraliza os ícones */
-    align-items: center; /* Centraliza verticalmente */
-    position: absolute; /* Posicionamento absoluto dentro do container */
-    bottom: 0; /* Fixa na parte inferior */
-    width: 100%; /* Ocupa toda a largura */
-    height: 80px; /* Altura aumentada do rodapé */
-    gap: 80px; /* Espaço entre os ícones */
-    padding: 0; /* remove padding que pode deslocar o conteúdo */
-}
-
-/* Estilo das imagens do rodapé */
-.footer img {
-    width: 65px;
-    height: 60px;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #6B2D7F 0%, #8c4fa8 50%, #9B6BB8 100%);
+    margin: 0;
     padding: 0;
-    display: block;
-    margin: 0; 
-   
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
+/* Navbar superior para desktop */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(to bottom, #000000 0%, #3A024E 80%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  padding: 0 clamp(16px, 5vw, 80px);
+  box-sizing: border-box; /* impede que o padding aumente a largura além de 100% */
+    z-index: 1000;
+}
 
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-/* Avatar circular com anel gradiente uniforme */
-.footer a[href="avatar.html"] {
-   
+.navbar-logo img {
+    width: 85px;
+    height: 70px;
+}
+
+.navbar-logo span {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Container do perfil com dropdown */
+.navbar-profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  /* Evita que o container ultrapasse a tela em nomes longos */
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 40vw;
+}
+
+.navbar-profile:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  min-width: 0; /* permite truncar texto longo */
+}
+
+.profile-name {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* evita empurrar o perfil para fora */
+}
+
+/* Avatar na navbar */
+.navbar-avatar {
     --ring: 3px;
-
     display: inline-grid;
     place-items: center;
-    width: 58px;   /* tamanho total com anel */
-    height: 58px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    position: relative; /* needed for ::before ring */
-    background:  linear-gradient(180deg, #00f7ff 0%, #6a00ff 35%, #f82dff 100%); 
-    box-shadow: 0 0 8px rgba(106,0,255,0.10);
+    background: linear-gradient(180deg, #00f7ff 0%, #6a00ff 35%, #f82dff 100%);
+    box-shadow: 0 0 8px rgba(106,0,255,0.3);
 }
 
-
-/* Garante que a imagem do avatar fique certinha dentro do anel */
-#menuAvatar {
-    /* size avatar to fit inside the punched ring */
+.navbar-avatar img {
     width: calc(100% - (var(--ring) * 2));
     height: calc(100% - (var(--ring) * 2));
     border-radius: 50%;
     object-fit: cover;
-    z-index: 1; /* sit above the ::before ring */
+    z-index: 1;
+}
+
+/* Seta dropdown */
+.dropdown-arrow {
+    color: white;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.navbar-profile.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Menu dropdown */
+.dropdown-menu {
+  position: absolute; /* centraliza em relação ao perfil */
+  top: 65px; /* abaixo do perfil (desktop) */
+  left: 50%;
+  right: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  min-width: 220px;
+  max-width: 250px;
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -10px);
+  transition: all 0.3s ease;
+  z-index: 2000;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: #5E097E;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background: #F2F3FD;
+    transform: translateX(4px);
+}
+
+.dropdown-menu a img {
+    width: 24px;
+    height: 24px;
+   
+}
+
+#perfil {
+    border-radius: 50%;
 }
 
 
 
+.dropdown-divider {
+    height: 1px;
+    background: #e0e0e0;
+    margin: 8px 0;
+}
 
+/* Container principal - layout profissional */
+.section {
+    margin-top: 110px;
+    padding: 50px 60px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Hero section */
+.hero-section {
+    text-align: left;
+    color: white;
+    margin-bottom: 60px;
+}
+
+.hero-section h1 {
+    font-size: 48px;
+    margin: 0 0 20px 0;
+    font-weight: 700;
+    color: #a107ee;
+    text-shadow: 2px 2px 12px rgba(45, 10, 62, 0.7), 0 0 25px rgba(144, 54, 228, 0.5);
+}
+
+.hero-section p {
+    font-size: 22px;
+    opacity: 0.95;
+    margin: 0;
+    color: #e0d4ff;
+}
+
+/* Grid de botões para desktop */
+.buttons-desk {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.buttons-desk a {
+    background-color: #F2F3FD;
+    border: 3px solid #440459;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 10px 0 20px rgba(34, 2, 45, 0.4);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.buttons-desk a:hover {
+    transform: translateY(-5px);
+    box-shadow: 12px 0 25px rgba(68, 4, 89, 0.6);
+    background-color: #D8D2F0;
+}
+
+.buttons-desk img {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.buttons-desk .button-content {
+    flex: 1;
+}
+
+.buttons-desk .button-content h3 {
+    font-size: 26px;
+    color: #5E097E;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.buttons-desk .button-content p {
+    font-size: 16px;
+    color: #440459;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Botões especiais (largura completa) */
+.buttons-desk .button-full {
+    grid-column: 1 / -1;
+    background-color: #F2F3FD;
+    border: 3px solid #440459;
+}
+
+.buttons-desk .button-full:hover {
+    background-color: #D8D2F0;
+    border-color: #440459;
+}
+
+.buttons-desk .button-full .button-content h3,
+.buttons-desk .button-full .button-content p {
+    color: #5E097E;
+}
+
+.buttons-desk .button-full .button-content p {
+    color: #440459;
+}
+
+/* ELEMENTOS MOBILE-ONLY (ESCONDIDOS NO DESKTOP) */
+.background-logo-container,
+.menu-container,
+.header-container,
+.footer {
+    display: none;
+}
+
+/* Elementos do tutorial (mantidos globais) */
 .blurred {
   filter: blur(5px);
 }
@@ -335,13 +392,14 @@ body {
 }
 
 .btn-skip {
-  background-color: #e0e0e0;
-  color: #333;
+  background: linear-gradient(135deg, #072752 0%, #124583 100%);
+  color: white;
 }
 
 .btn-skip:hover {
-  background-color: #d0d0d0;
+  background: linear-gradient(135deg, #2c5282 0%, #3b6cb8 100%);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(30, 58, 95, 0.4);
 }
 
 .btn-next {
@@ -375,20 +433,222 @@ body {
   border-radius: 5px;
 }
 
+ /* ================================================
+    MEDIA QUERY: TABLETS (481px - 1023px)
+    ================================================ */
+    @media (min-width: 481px) and (max-width: 1023px) {
+      .navbar {
+        padding: 0 clamp(16px, 4vw, 60px);
+        height: 80px;
+      }
 
- /* Responsivo para telas pequenas */
+      .navbar-logo img {
+        width: 55px;
+        height: 55px;
+      }
+
+      .navbar-logo span {
+        font-size: 24px;
+      }
+
+      .navbar-profile {
+        gap: 8px;
+      }
+
+      .navbar-avatar {
+        width: 45px;
+        height: 45px;
+      }
+
+      .profile-name {
+        font-size: 14px;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        min-width: 200px;
+        max-width: 230px;
+        left: 50%;
+        right: auto;
+        top: 60px; /* abaixo do perfil (tablet) */
+        transform: translate(-50%, -10px);
+      }
+
+      .section {
+        padding: 40px 30px;
+        margin-top: 100px;
+      }
+
+      .hero-section h1 {
+        font-size: 36px;
+      }
+
+      .hero-section p {
+        font-size: 18px;
+      }
+
+      .buttons-desk {
+        gap: 20px;
+      }
+
+      .buttons-desk a {
+        padding: 30px;
+      }
+
+      .buttons-desk img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .buttons-desk .button-content h3 {
+        font-size: 22px;
+      }
+
+      .buttons-desk .button-content p {
+        font-size: 14px;
+      }
+    }
+
+
+ /* ================================================
+    MEDIA QUERY: TELAS GRANDES (1440px+)
+    ================================================ */
+    @media (min-width: 1440px) {
+      .start-box {
+        max-width: 600px;
+        min-height: 500px;
+        padding: 50px 40px;
+      }
+
+      .start-box h1 {
+        font-size: 36px;
+      }
+
+      .start-box h3 {
+        font-size: 20px;
+      }
+
+      .tutorial-content img {
+        width: 140px;
+        height: 140px;
+      }
+
+      /* Hero section maior */
+      .hero-section h1 {
+        font-size: 56px;
+      }
+
+      .hero-section p {
+        font-size: 26px;
+      }
+
+      /* Botões maiores */
+      .buttons-desk a {
+        padding: 50px;
+      }
+
+      .buttons-desk img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .buttons-desk .button-content h3 {
+        font-size: 30px;
+      }
+
+      .buttons-desk .button-content p {
+        font-size: 18px;
+      }
+
+      /* Navbar maior */
+      .navbar {
+        height: 100px;
+        padding: 0 clamp(24px, 5vw, 100px);
+      }
+
+      .navbar-logo img {
+        width: 75px;
+        height: 75px;
+      }
+
+      .navbar-logo span {
+        font-size: 32px;
+      }
+
+      .navbar-profile {
+        gap: 15px;
+      }
+
+      .navbar-avatar {
+        width: 55px;
+        height: 55px;
+      }
+
+      .profile-name {
+        font-size: 18px;
+      }
+
+      .dropdown-arrow {
+        font-size: 22px;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        min-width: 220px;
+        max-width: 240px;
+        top: 70px; /* abaixo do perfil (telas grandes) */
+        left: 50%;
+        right: auto;
+        transform: translate(-50%, -10px);
+      }
+
+      .section {
+        margin-top: 130px;
+        padding: 60px 80px;
+      }
+}
+
+
+ /* ================================================
+    MEDIA QUERY: MOBILE (max-width: 480px)
+    MANTÉM O DESIGN ORIGINAL
+    ================================================ */
      @media (max-width: 480px) {
+        /* Esconde elementos desktop */
+        .navbar,
+        .section,
+        .hero-section,
+        .buttons-desk {
+            display: none !important;
+        }
+
+        /* Mostra elementos mobile */
+        .background-logo-container,
+        .menu-container,
+        .header-container,
+        .footer {
+            display: flex !important;
+        }
+
+        /* Corpo da página mobile */
         body {
           margin: 0;
           bottom: 0;
           padding-bottom: 0;
           flex-direction: column;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          background-color: #775085;
+          overflow-y: auto;
         }
 
         .background-logo-container {
-          display: none; /* Remove logo do fundo */
+          display: none !important;
         }
 
+        /* Tutorial mobile */
         .start-box {
           width: 90%;
           min-height: 400px;
@@ -413,197 +673,288 @@ body {
           font-size: 14px;
         }
 
+        /* Container principal mobile */
         .menu-container {
-        top: -1px;
-        position: relative;
-        margin: 0 auto;
-        width: 95%;
-        height: 98vh; /* altura total visível */
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between; /* empurra o rodapé para o fim */
-        box-sizing: border-box;
-      }
-
-      .menu-container button{
-        margin-top: 50px;
-      
-      }
-
-      .menu-container h2{
-        margin-top: 20px;
-      }
-
-       .menu-container button img {
-            width: 65px; /* Largura da imagem menor */
-            height: 65px; /* Altura da imagem menor */
+          top: -1px;
+          position: relative;
+          margin: 0 auto;
+          width: 95%;
+          height: 98vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          box-sizing: border-box;
+          background-color: #fff;
+          border-radius: 12px;
+          box-shadow: 0 0 20px rgba(34, 2, 45, 0.6);
+          text-align: center;
+          overflow: hidden;
         }
 
-        /* Estilo do texto dentro dos botões (span) */
+        /* Cabeçalho mobile */
+        .header-container {
+          display: flex;
+          align-items: center;
+          background: linear-gradient(to bottom, #000000 0%, #3A024E 80%);
+          padding: 15px 20px;
+          border-radius: 12px 12px 0 0;
+          color: white;
+          width: 100%;
+          margin-bottom: 30px;
+        }
+
+        .header-container img {
+          width: 65px;
+          margin-right: 10px;
+        }
+
+        .header-container h3 {
+          margin: 0;
+          font-size: 20px;
+        }
+
+        /* Título mobile */
+        .menu-container h2 {
+          text-align: left;
+          padding-left: 20px;
+          margin-top: 20px;
+          color: #5E097E;
+          margin-bottom: -30px;
+        }
+
+        /* Container de botões mobile */
+        .button-container {
+          flex-grow: 1;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          align-items: center;
+          margin-top: 60px;
+          padding: 0 20px;
+          overflow: visible;
+        }
+
+        /* Linha de botões mobile */
+        .button-container .row {
+          display: flex;
+          gap: 20px;
+          justify-content: center;
+          width: 100%;
+        }
+
+        /* Botões mobile */
+        .menu-container button {
+          background-color: #F2F3FD;
+          color: #5E097E;
+          border: 2px solid #440459;
+          border-radius: 16px;
+          padding: 10px;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          width: 100%;
+          height: auto;
+          max-height: 160px;
+          min-height: 80px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 10px 0 14px rgba(34, 2, 45, 0.5);
+          flex-shrink: 1;
+          overflow: hidden;
+          white-space: normal;
+          text-overflow: ellipsis;
+          margin-top: 50px;
+        }
+
+        .menu-container button:hover {
+          box-shadow: 12px 0 18px rgba(48, 10, 62, 0.7);
+          background-color: #D8D2F0;
+          transform: scale(1.02);
+        }
+
+        .menu-container button img {
+          width: 65px;
+          height: 65px;
+          margin-bottom: 15px;
+          flex-shrink: 0;
+        }
+
         .button-container span {
-            font-size: 18px; /* Fonte menor para melhor adaptação */
+          font-size: 18px;
+          word-break: break-word;
         }
 
-        /* Botões com imagem e texto lado a lado */
+        /* Botões especiais mobile */
         .menu-container .questionarios-button,
         .menu-container .minigames-button {
-            margin-top: 15px;
-            flex-direction: row;
-            align-items: center;
-            height: 100px;
+          margin-top: 15px;
+          flex-direction: row;
+          align-items: center;
+          height: 100px;
         }
 
-        /* Ajuste da imagem no botão "Questionários" */
         .menu-container .questionarios-button img {
-            margin-right: 15px;
-            margin-bottom: 0;
-            width: 65px;
-            height: 65px;
+          margin-right: 15px;
+          margin-bottom: 0;
+          width: 65px;
+          height: 65px;
         }
 
-        /* Ajuste da imagem no botão "Mini Games" */
         .menu-container .minigames-button img {
-            margin-bottom: -5px;
-            margin-left: 15px;
-            width: 65px;
-            height: 65px;
+          margin-bottom: -5px;
+          margin-left: 15px;
+          width: 65px;
+          height: 65px;
+        }
+
+        /* Rodapé mobile */
+        .footer {
+          background-color: #300A3E;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 80px;
+          gap: 80px;
+          padding: 0;
+        }
+
+        .footer img {
+          width: 65px;
+          height: 60px;
+          padding: 0;
+          display: block;
+          margin: 0;
+        }
+
+        /* Avatar mobile */
+        .footer a[href="avatar.html"] {
+          --ring: 3px;
+          display: inline-grid;
+          place-items: center;
+          width: 58px;
+          height: 58px;
+          border-radius: 50%;
+          position: relative;
+          background: linear-gradient(180deg, #00f7ff 0%, #6a00ff 35%, #f82dff 100%);
+          box-shadow: 0 0 8px rgba(106,0,255,0.10);
+        }
+
+        #menuAvatar {
+          width: calc(100% - (var(--ring) * 2));
+          height: calc(100% - (var(--ring) * 2));
+          border-radius: 50%;
+          object-fit: cover;
+          z-index: 1;
         }
         
     }
 
-    /* Responsivo para telas grandes */
-    @media (min-width: 1440px) {
-        .background-logo-container img {
-        width: 150px;
-        height: auto;
-        }
-
-        .background-logo-container span {
-        font-size: 58px;
-
-        }
-
-      .start-box {
-        max-width: 600px;
-        min-height: 500px;
-        padding: 50px 40px;
-      }
-
-      .start-box h1 {
-        font-size: 36px;
-      }
-
-      .start-box h3 {
-        font-size: 20px;
-      }
-
-      .tutorial-content img {
-        width: 140px;
-        height: 140px;
-      }
-
-      .menu-container {
-        top: 5px;
-        width: 500px;
-        height: 700px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding-bottom: 0;
-        position: relative;
-        transform: translateX(-1px); /*GARANTE CENTRALIZAÇÃO IGUAL LOGIN*/
-      }
-
-      .boas-vindas {
-        font-size: 56px;
-      }
-
-            /* Estilo da imagem do logo no cabeçalho */
-        .header-container img {
-            width: 75px; /* Largura da imagem */
-            margin-right: 15px; /* Espaço à direita da imagem */
-        }
-
-        /* Estilo do título dentro do cabeçalho */
-        .header-container h3 {
-            font-size: 24px; /* Tamanho da fonte menor */
-        }
-
-      /* Estilo do título da seção principal */
-        .menu-container h2 {
-            padding-left: 25px; /* Espaço à esquerda */
-            margin-top: 3px; /* Pequena margem superior */
-            margin-bottom: -10px;
-            font-size: 28px;
-        }
-
-      .menu-container button img {
-            width: 65px; /* Largura da imagem menor */
-            height: 65px; /* Altura da imagem menor */
-        }
-
-        /* Estilo do texto dentro dos botões (span) */
-        .button-container span {
-            font-size: 18px; /* Fonte menor para melhor adaptação */
-        }
-
-        /* Botões com imagem e texto lado a lado */
-        .menu-container .questionarios-button,
-        .menu-container .minigames-button {
-            margin-top: 10px;
-            flex-direction: row;
-            align-items: center;
-            height: 100px;
-        }
-
-        /* Ajuste da imagem no botão "Questionários" */
-        .menu-container .questionarios-button img {
-            margin-right: 15px;
-            margin-bottom: 0;
-            width: 65px;
-            height: 65px;
-        }
-
-        /* Ajuste da imagem no botão "Mini Games" */
-        .menu-container .minigames-button img {
-            margin-bottom: -5px;
-            margin-left: 15px;
-            width: 65px;
-            height: 65px;
-        }
-
-        /* Rodapé: centralizar ícones e manter espaçamento consistente com outras telas */
-        .footer {
-            gap: 120px; /* mesmo espaçamento definido fora da media query */
-        }
-
-       .footer img {
-        width: 70px;
-        height: 65px;
-        }
-
-
-        /* Avatar circular com anel gradiente uniforme */
-        .footer a[href="avatar.html"] {
-            width: 63px;   
-            height: 63px;
-        }
-
-
-}
+   
 
 
     </style>
 </head>
 <body>
 
-      <!-- LOGO E TEXTO NO BACKGROUND -->
-  <div class="background-logo-container">
-    <img src="Imagens/Logo sem Fundo.png" alt="Logo BrainForms Fundo">
-    <span>BrainForms</span>
-  </div>
+    <!-- ========================================
+         NAVBAR SUPERIOR (DESKTOP)
+         ======================================== -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="Imagens/Logo sem Fundo.png" alt="Logo BrainForms">
+            <span>BrainForms</span>
+        </div>
+        
+        <div class="navbar-profile" onclick="toggleDropdown(event)">
+            <div class="navbar-avatar">
+                <img id="navbarAvatar" src="Imagens/perfil.png" alt="Perfil">
+            </div>
+            <div class="profile-info">
+                <p class="profile-name" id="navbar-user-name">Usuário</p>
+            </div>
+            <span class="dropdown-arrow">▼</span>
+            
+            <!-- Menu Dropdown -->
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="avatar.html">
+                    <img id="perfil" src="Imagens/perfil.png" alt="Perfil">
+                    <span>Meu Perfil</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="conquistas.html">
+                    <img src="Imagens/conquistaBar.png" alt="Conquistas">
+                    <span>Conquistas</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="menu.html">
+                    <img src="Imagens/menuBar.png" alt="Menu">
+                    <span>Menu Principal</span>
+                </a>
+            </div>
+        </div>
+    </nav>
 
-    <!-- Container principal do menu -->
+    <!-- ========================================
+         CONTEÚDO PRINCIPAL (DESKTOP)
+         ======================================== -->
+    <div class="section">
+        <div class="hero-section">
+            <h1>Navegue pelo Sistema</h1>
+            <p>Explore o mundo da Matemática e Física de forma interativa</p>
+        </div>
+
+        <div class="buttons-desk">
+            <a href="calcular-matematica.html">
+                <img src="Imagens/mat.png" alt="Matemática">
+                <div class="button-content">
+                    <h3>Fórmulas Matemáticas</h3>
+                    <p>Explore equações, geometria, logaritmos, trigonometria e muito mais!</p>
+                </div>
+            </a>
+
+            <a href="calcular-fisica.html">
+                <img src="Imagens/fisic.png" alt="Física">
+                <div class="button-content">
+                    <h3>Fórmulas Físicas</h3>
+                    <p>Calcule cinemática, eletrostática, conversões e outras fórmulas físicas.</p>
+                </div>
+            </a>
+
+            <a href="menu-questoes.html" class="button-full">
+                <img src="Imagens/quest.png" alt="Questionários">
+                <div class="button-content">
+                    <h3>Questionários Interativos</h3>
+                    <p>Teste seus conhecimentos com exercícios práticos de Matemática e Física!</p>
+                </div>
+            </a>
+
+            <a href="mini-games.html" class="button-full">
+                <img src="Imagens/game.png" alt="Mini Games">
+                <div class="button-content">
+                    <h3>Mini Games</h3>
+                    <p>Desafie-se com jogos educativos e divirta-se enquanto aprende!</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+      <!-- ========================================
+           ESTRUTURA MOBILE (ANTIGA)
+           ======================================== -->
+
+      <!-- LOGO E TEXTO NO BACKGROUND (MOBILE) -->
+      <div class="background-logo-container">
+        <img src="Imagens/Logo sem Fundo.png" alt="Logo BrainForms Fundo">
+        <span>BrainForms</span>
+      </div>
+
+    <!-- Container principal do menu (MOBILE) -->
     <div class="menu-container">
         <!-- Cabeçalho com logo e título -->
         <div class="header-container">
@@ -683,17 +1034,70 @@ body {
 <script src="js/conquistas-utils.js"></script>
 
 <script>
+  // Função para toggle do dropdown
+  function toggleDropdown(event) {
+      event?.stopPropagation();
+      const dropdown = document.getElementById('dropdown-menu');
+      const profile = document.querySelector('.navbar-profile');
+      
+    const willShow = !dropdown.classList.contains('show');
+    dropdown.classList.toggle('show');
+    profile.classList.toggle('active');
+
+    // Ajuste inteligente para evitar que o dropdown saia da tela
+    if (willShow) {
+      // reset para o estado centralizado padrão via CSS
+      dropdown.style.left = '';
+      dropdown.style.right = '';
+      dropdown.style.transform = '';
+
+      const rect = dropdown.getBoundingClientRect();
+      const padding = 8; // margem de segurança
+
+      if (rect.right > (window.innerWidth - padding)) {
+        // encosta na direita do perfil sem ultrapassar a tela
+        dropdown.style.left = 'auto';
+        dropdown.style.right = '0';
+        dropdown.style.transform = 'translateY(0)';
+      } else if (rect.left < padding) {
+        // encosta na esquerda do perfil sem ultrapassar a tela
+        dropdown.style.left = '0';
+        dropdown.style.right = 'auto';
+        dropdown.style.transform = 'translateY(0)';
+      }
+    } else {
+      // limpamos estilos inline ao fechar, para voltar ao centrado padrão
+      dropdown.style.left = '';
+      dropdown.style.right = '';
+      dropdown.style.transform = '';
+    }
+  }
+
+  // Fecha o dropdown ao clicar fora
+  document.addEventListener('click', function(event) {
+      const profile = document.querySelector('.navbar-profile');
+      const dropdown = document.getElementById('dropdown-menu');
+      
+      if (profile && !profile.contains(event.target)) {
+          dropdown?.classList.remove('show');
+          profile?.classList.remove('active');
+      }
+  });
+
   document.addEventListener("DOMContentLoaded", async () => {
       const token = sessionStorage.getItem("token");
       if (!token) return;
       
       // Carrega avatar (primeiro do sessionStorage, depois do backend)
       const menuAvatar = document.getElementById("menuAvatar");
+      const navbarAvatar = document.getElementById("navbarAvatar");
       let savedAvatar = sessionStorage.getItem("alunoAvatar");
       
-      if (savedAvatar && menuAvatar) {
-          menuAvatar.src = savedAvatar;
-      } else if (menuAvatar) {
+      // Atualiza ambos os avatares (mobile e desktop)
+      if (savedAvatar) {
+          if (menuAvatar) menuAvatar.src = savedAvatar;
+          if (navbarAvatar) navbarAvatar.src = savedAvatar;
+      } else {
           // Se não tiver no sessionStorage, busca do backend
           try {
               const avatarResponse = await fetch("http://localhost:8000/api/avatar/show", {
@@ -705,7 +1109,8 @@ body {
               if (avatarResponse.ok) {
                   const avatarData = await avatarResponse.json();
                   if (avatarData.avatar_url) {
-                      menuAvatar.src = avatarData.avatar_url;
+                      if (menuAvatar) menuAvatar.src = avatarData.avatar_url;
+                      if (navbarAvatar) navbarAvatar.src = avatarData.avatar_url;
                       sessionStorage.setItem("alunoAvatar", avatarData.avatar_url);
                   }
               }
@@ -730,7 +1135,12 @@ body {
           // ✅ Salva o nome do aluno na session (em todos os logins)
           sessionStorage.setItem("alunoNome", aluno.name);
           
-          // Define o nome do usuário no elemento, se existir
+          // Define o nome do usuário no elemento da navbar e outras áreas
+          const navbarUserName = document.getElementById("navbar-user-name");
+          if (navbarUserName) {
+              navbarUserName.textContent = aluno.name;
+          }
+          
           const nomeUsuarioEl = document.getElementById("nome-usuario");
           if (nomeUsuarioEl) {
               nomeUsuarioEl.textContent = aluno.name;
@@ -743,32 +1153,40 @@ body {
               {
                   icon: 'Imagens/Logo sem Fundo.png',
                   title: 'Bem-vindo(a) ao BrainForms!',
-                  text: `Olá, <span style="font-weight:bold; color: #650591;">${aluno.name}</span>! Estamos muito felizes em ter você aqui. Prepare-se para explorar o mundo da Matemática e Física de forma divertida e interativa!`
+                  text: `Olá, <span style="font-weight:bold; color: #650591;">${aluno.name}</span>! 
+                  Estamos muito felizes em ter você aqui. Prepare-se para explorar o mundo da Matemática e Física de forma divertida e interativa!`
               },
               {
-                  icon: 'Imagens/matCalc.png',
+                  icon: 'Imagens/forms.png',
                   title: 'Fórmulas Interativas',
-                  text: 'Explore diversas fórmulas de Matemática e Física! Calcule equações, geometria, conversões de temperatura e muito mais. Cada cálculo conta para suas conquistas!'
+                  text: `Explore diversas fórmulas de Matemática e Física! Calcule equações, geometria, conversões de temperatura 
+                  e muito mais. Cada cálculo conta para suas conquistas!`
               },
               {
                   icon: 'Imagens/quest.png',
                   title: 'Questionários',
-                  text: 'Teste seus conhecimentos com questionários de Matemática e Física! Resolva exercícios práticos, aprenda com feedback imediato e acompanhe seu progresso.'
+                  text:  `Teste seus conhecimentos com questionários de Matemática e Física! Resolva exercícios práticos, 
+                  aprenda com feedback imediato e acompanhe seu progresso. `
               },
               {
-                  icon: 'Imagens/Tquizz2.png',
-                  title: 'Time Quizz',
-                  text: 'Desafie-se contra o tempo! Responda questões rapidamente e teste sua agilidade mental. Quanto mais rápido, melhor sua pontuação!'
+                  icon: 'Imagens/game.png',
+                  title: 'Mini Games',
+                  text:  `Divirta-se enquanto aprende! Nossa seção de Mini Games oferece diferentes desafios para testar 
+                  suas habilidades cognitivas e conhecimento. Com o Time Quizz, você responde perguntas contra o relógio, 
+                  onde rapidez e precisão aumentam sua pontuação!`
               },
               {
                   icon: 'Imagens/conquistasTitulo.png',
                   title: 'Conquistas',
-                  text: 'Complete desafios e desbloqueie conquistas incríveis! Cada ação no BrainForms pode render uma nova conquista. Colete todas elas!'
+                  text:  `Complete desafios e desbloqueie conquistas incríveis! Cada ação no BrainForms pode render 
+                  uma nova conquista. Colete todas elas!\n
+                  Você pode acompanhar suas conquistas na seção dedicada, acessando a aba do seu perfil no cabeçalho. `
               },
               {
                   icon: 'Imagens/perfilDefault.png',
                   title: 'Seu Perfil',
-                  text: 'Personalize seu perfil com avatares únicos! Escolha entre vários avatares ou faça upload da sua própria foto. Mostre sua personalidade!'
+                  text:  `Personalize seu perfil com avatares únicos! Escolha entre vários avatares ou faça upload da sua própria foto.
+                   Mostre sua personalidade! `
               }
           ];
 

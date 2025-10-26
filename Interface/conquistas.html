@@ -651,6 +651,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const conquistas = await window.carregarConquistasAPI?.();
     renderizarPainel(conquistas || []);
 
+    // Verificar se há conquistas pendentes para exibir
+    const conquistasPendentes = sessionStorage.getItem('conquistasPendentes');
+    if (conquistasPendentes) {
+        try {
+            const pendentes = JSON.parse(conquistasPendentes);
+            sessionStorage.removeItem('conquistasPendentes'); // Limpar para não exibir novamente
+            
+            // Exibir as conquistas pendentes
+            if (pendentes.length > 0 && window.mostrarConquistasPendentes) {
+                window.mostrarConquistasPendentes(pendentes);
+            }
+        } catch (e) {
+            console.error('Erro ao processar conquistas pendentes:', e);
+        }
+    }
+
     // Exibe overlay de boas-vindas se necessário
     let mostrados = JSON.parse(sessionStorage.getItem("boas_vindas_mostrada") || "{}");
     if (!mostrados[nome]) {

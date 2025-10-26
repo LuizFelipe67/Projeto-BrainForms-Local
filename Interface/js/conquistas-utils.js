@@ -89,6 +89,9 @@
    * @param {Array|null} novasIds - opcional, array de ids (do backend) que foram recém-desbloqueadas
    */
 
+  // Fila global de conquistas a serem exibidas
+  let filaConquistas = [];
+  let exibindoConquista = false;
 
   function mostrarNovasConquistasLocal(conquistas, primeiraVez = false, novasIds = null) {
     const conquistasAntigas = JSON.parse(sessionStorage.getItem('conquistasAnteriores')) || [];
@@ -110,37 +113,97 @@
       return;
     }
 
-    // mostrar apenas a primeira conquista nova (aquela desbloqueada naquele momento)
-    const c = novas[0];
+    // Adicionar todas as conquistas novas à fila
+    filaConquistas.push(...novas);
+
+    // Atualizar storage marcando todas as conquistas atuais como anteriores
+    sessionStorage.setItem('conquistasAnteriores', JSON.stringify(conquistas));
+
+    // Iniciar a exibição se não estiver já exibindo
+    if (!exibindoConquista) {
+      exibirProximaConquista();
+    }
+  }
+
+  function exibirProximaConquista() {
+    if (filaConquistas.length === 0) {
+      exibindoConquista = false;
+      return;
+    }
+
+    exibindoConquista = true;
+    const c = filaConquistas.shift(); // Pega a primeira da fila
+
     criarModalConquista();
     const modal = document.getElementById('conquista-modal');
-    if (!modal) return; // falha segura
+    if (!modal) {
+      exibindoConquista = false;
+      return;
+    }
 
-  const icone = document.getElementById('conquista-modal-icone');
-  const messageEl = document.getElementById('conquista-modal-message');
-  const nomeEl = document.getElementById('conquista-modal-nome');
-  const descEl = document.getElementById('conquista-modal-desc');
-  const statusEl = document.getElementById('conquista-modal-status');
+    const icone = document.getElementById('conquista-modal-icone');
+    const messageEl = document.getElementById('conquista-modal-message');
+    const nomeEl = document.getElementById('conquista-modal-nome');
+    const descEl = document.getElementById('conquista-modal-desc');
+    const statusEl = document.getElementById('conquista-modal-status');
 
-  icone.src = c.icone || 'Imagens/perfilDefault.png';
-  // Aplicar cor de fundo da conquista (igual ao painel) e garantir imagem colorida
-  try {
-    icone.style.background = c.cor || '#D9D9D9';
-    icone.style.filter = 'none';
-  } catch (e) {}
-  // Mostrar apenas a frase solicitada
-  messageEl.textContent = `🎉 Parabéns por concluir sua ${c.id}° conquista: ${c.name}`;
-  // ocultar campos que não são necessários
-  nomeEl.style.display = 'none';
-  descEl.style.display = 'none';
-  statusEl.style.display = 'none';
+    icone.src = c.icone || 'Imagens/perfilDefault.png';
+    // Aplicar cor de fundo da conquista (igual ao painel) e garantir imagem colorida
+    try {
+      icone.style.background = c.cor || '#D9D9D9';
+      icone.style.filter = 'none';
+    } catch (e) {}
+    // Mostrar apenas a frase solicitada
+    messageEl.textContent = `🎉 Parabéns por concluir sua ${c.id}° conquista: ${c.name}`;
+    // ocultar campos que não são necessários
+    nomeEl.style.display = 'none';
+    descEl.style.display = 'none';
+    statusEl.style.display = 'none';
 
-  modal.style.display = 'flex';
+    modal.style.display = 'flex';
 
-    // atualizar storage marcando todas as conquistas atuais como anteriores (consideradas lidas)
-    sessionStorage.setItem('conquistasAnteriores', JSON.stringify(conquistas));
+    // Reconfigurar os botões para exibir a próxima conquista quando fecharem
+    const btnClose = document.getElementById('conquista-modal-close');
+    const btnOpen = document.getElementById('conquista-modal-open');
+    
+    // Remover event listeners antigos clonando os botões
+    const newBtnClose = btnClose.cloneNode(true);
+    const newBtnOpen = btnOpen.cloneNode(true);
+    btnClose.parentNode.replaceChild(newBtnClose, btnClose);
+    btnOpen.parentNode.replaceChild(newBtnOpen, btnOpen);
+
+    newBtnClose.addEventListener('click', () => {
+      modal.style.display = 'none';
+      setTimeout(() => { 
+        try { modal.remove(); } catch(e){} 
+        // Exibir a próxima conquista da fila
+        exibirProximaConquista();
+      }, 200);
+    });
+
+    newBtnOpen.addEventListener('click', () => {
+      // Se ainda houver conquistas na fila, salvar para exibir depois
+      if (filaConquistas.length > 0) {
+        sessionStorage.setItem('conquistasPendentes', JSON.stringify(filaConquistas));
+        filaConquistas = []; // Limpar a fila
+      }
+      exibindoConquista = false;
+      try { window.location.href = 'conquistas.html'; } catch (e) { console.error(e); }
+    });
   }
 
   window.carregarConquistasAPI = carregarConquistasAPI;
   window.mostrarNovasConquistasLocal = mostrarNovasConquistasLocal;
+  
+  // Função para exibir conquistas pendentes (usada na página de conquistas)
+  window.mostrarConquistasPendentes = function(conquistasPendentes) {
+    if (!conquistasPendentes || conquistasPendentes.length === 0) return;
+    
+    // Adicionar à fila e começar a exibição
+    filaConquistas.push(...conquistasPendentes);
+    
+    if (!exibindoConquista) {
+      exibirProximaConquista();
+    }
+  };
 })();
